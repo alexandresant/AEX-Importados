@@ -138,13 +138,13 @@ export function Produtos(){
             <input
                 type="text"
                 placeholder="Buscar por nome, código ou categoria"
-                className="border border-gray-300 rounded px-3 py-2 mb4 w-full"
+                className="border border-gray-300 rounded px-3 py-2 mb4 w-full m-3"
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
             />
-            <table className="w-full border-collapse">
+            <table className="w-full border-collapse m-3">
                 <thead>
-                    <tr className="bg-gray-100">
+                    <tr className="bg-white">
                         <th className="border px-4 py-2 text-left">Código</th>
                         <th className="border px-4 py-2 text-left">Nome</th>
                         <th className="border px-4 py-2 text-left">Preço</th>
@@ -241,13 +241,13 @@ export function Produtos(){
                             <div className="flex justify-end space-x-2">
                                 <button
                                     onClick={() => setShowModalCadastro(false)}
-                                    className="px-4 py-2 rounded border bg-rose-600 hover:bg-red-700 border-gray-300 hover:bg-gray-100"
+                                    className="px-4 py-2 rounded text-white bg-red-600 hover:bg-red-700 border-gray-300"
                                 >
                                     Cancelar
                                 </button>
                                 <button
                                     onClick={cadastrarProduto}
-                                    className="px-4 rounded bg-blue-600 text-white hover:bg-blue-700"
+                                    className="px-4 py-2 rounded text-white bg-blue-600  hover:bg-blue-700 "
                                 >
                                     Confirmar
                                 </button>
