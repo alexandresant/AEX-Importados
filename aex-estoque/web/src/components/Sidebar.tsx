@@ -4,10 +4,14 @@ import {
   Repeat,
   Truck,
   FileText,
-  Users
+  Users,
+  Home
 } from 'lucide-react'
 
+import  LogoSidebar  from "../assets/AEX-Logo.png"
+
 const menuItems = [
+  { label: 'Dashboard', href: 'dashboard', icon: Home },
   { label: 'Produtos', href: '/produtos', icon: Package },
   { label: 'Entradas/Saídas', href: '/movimentacoes', icon: Repeat },
   { label: 'Fornecedores', href: '/fornecedores', icon: Truck },
@@ -54,7 +58,7 @@ export function Sidebar() {
       >
         <div className="flex items-center h-16 border-b border-gray-200 px-4">
           <img
-            src="/AEX-Logo.png"
+            src={LogoSidebar}
             alt="Logo AEX"
             className="h-10 w-auto"
           />
