@@ -4,12 +4,14 @@ import {
   Repeat,
   Truck,
   FileText,
-  Users
+  Users,
+  Home
 } from 'lucide-react'
 
-import LogoSidebar from '../../../public/AEX-Logo.png'
+import  LogoSidebar  from "../assets/AEX-Logo.png"
 
 const menuItems = [
+  { label: 'Dashboard', href: 'dashboard', icon: Home },
   { label: 'Produtos', href: '/produtos', icon: Package },
   { label: 'Entradas/Saídas', href: '/movimentacoes', icon: Repeat },
   { label: 'Fornecedores', href: '/fornecedores', icon: Truck },

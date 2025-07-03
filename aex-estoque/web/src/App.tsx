@@ -1,6 +1,7 @@
 import './index.css'
 import { Sidebar } from './components/Sidebar'
 import { Produtos } from './pages/Produtos'
+import { CadastroForncedor } from './pages/Fornecedores'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
  
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
       <main className="flex-1 p-6">
           <Routes>
             <Route path="/produtos" element={<Produtos />} />
+            <Route path="fornecedores" element={<CadastroForncedor/>} />
           </Routes>
       </main>
     </div>
