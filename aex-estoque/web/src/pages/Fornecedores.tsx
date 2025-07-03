@@ -16,6 +16,8 @@ export function CadastroForncedor(){
     const [produtos, setProdutos] = useState<Produto[]>([])
     const [produtosSelecionados, setProdutosSelecionados] = useState<string[]>([])
 
+    const [showModalCadastro, setShowModalCadastro] = useState(false)
+
     useEffect(() =>{
         fetch("http://192.168.100.44:3001/produtos")
         .then(res => res.json())
@@ -56,54 +58,16 @@ export function CadastroForncedor(){
     }
 
     return(
-        <div className="max-w-full mx-auto mt-">
-            <Card>
-                <CardHeader>
-                    <h2 className="text-center text-2xl font-semibold">Cadastro de Fornecedor</h2>
-                </CardHeader>
-                <Separator />
-                <form onSubmit={handleSubmit}>
-                    <CardContent className="space-y-4">
-                        <div>
-                            <Label htmlFor="nome">Nome</Label>
-                            <Input id="nome" value={nome} onChange={e => setNome(e.target.value)} required />
-                        </div>
-                        <div>
-                            <Label htmlFor="contato">Contato</Label>
-                            <Input id="contato" value={contato} onChange={e => setContato(e.target.value)} required/>
-                        </div>
-                        <div>
-                            <Label>Produtos Fornecidos</Label>
-                            <Select onValueChange={(value) =>{
-                                if (!produtosSelecionados.includes(value)){
-                                    setProdutosSelecionados(prev => [...prev, value])
-                                }
-                            }}>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Selecione um produto"/>
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {produtos.map(prod =>(
-                                        <SelectItem key={prod.codigo} value={prod.codigo}>
-                                            {prod.nome} ({prod.codigo})
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            {produtosSelecionados.length > 0 && (
-                                <ul className="mt-2 text-sm text-gray-700 list-disc list-inside">
-                                    {produtosSelecionados.map((codigo, index) =>
-                                        <li key={index}>{codigo}</li>
-                                    )}
-                                </ul>
-                            )}
-                        </div>
-                    </CardContent>
-                    <CardFooter className="items-center">
-                        <Button type="submit" className="max-w-xl">Cadastrar Fornecedores</Button>
-                    </CardFooter>
-                </form>
-            </Card>
+        <div className="bg-white rounded-lg p-2 max-w-full mx-auto overflow-hidden">
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-3 gap-2">
+                <h1 className="text-2xl font-bold">Fornecedores</h1>
+                <Button
+                    onClick={()=> setShowModalCadastro(true)}
+                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                >
+                    Novo Fornecedor
+                </Button>
+            </div>
         </div>
     )
 }
