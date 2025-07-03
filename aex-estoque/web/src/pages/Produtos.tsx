@@ -4,8 +4,8 @@ import { Button } from "../components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table"
 import { Input } from "../components/ui/input"
 
-import { ShowModalCadastro } from "./ModalCadastro"
-import { ShowModalEditar } from "./ModalEditar"
+import { ShowModalCadastro } from "./ModalCadastroProduto"
+import { ShowModalEditar } from "./ModalEditarProduto"
 
 type Produto = {
     id: number
