@@ -15,3 +15,12 @@ model Produto {
   quantidade Int
   categoria  String
 }
+
+model Fornecedor {
+  id        Int @id @default(autoincrement())
+  nome      String
+  codigo    String @unique
+  contato   String
+  telefone  String 
+  email     String
+}

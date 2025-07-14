@@ -7,15 +7,7 @@ import { Input } from "../components/ui/input"
 import { ShowModalCadastro } from "./ModalCadastroProduto"
 import { ShowModalEditar } from "./ModalEditarProduto"
 
-type Produto = {
-    id: number
-    nome: string
-    codigo: string
-    preco: number
-    quantidade: number
-    categoria: string
-}
-
+import type { Produto } from "../types/produto"
 export function Produtos(){
     const [produtos, setProdutos] = useState<Produto[]>([])
     const [busca, setBusca] = useState('')
@@ -286,99 +278,99 @@ export function Produtos(){
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
             />
-             <div className="border rounded-lg overflow-hidden">
-        <div className="overflow-x-auto">
-          <Table className="min-w-full divide-y divide-gray-200">
-            <TableHeader className="bg-gray-50">
-              <TableRow>
-                <TableHead className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</TableHead>
-                <TableHead className="hidden sm:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Código</TableHead>
-                <TableHead className="hidden md:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Preço</TableHead>
-                <TableHead className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estoque</TableHead>
-                <TableHead className="hidden lg:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoria</TableHead>
-                <TableHead className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody className="bg-white divide-y divide-gray-200">
-              {produtosFiltrados.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={6} className="px-4 py-6 text-center text-gray-500">
-                    Nenhum produto encontrado
-                  </TableCell>
-                </TableRow>
-              ) : (
-                produtosFiltrados.map((p) => (
-                  <TableRow key={p.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 text-sm text-gray-900 font-medium">
-                      <div className="font-medium">{p.nome}</div>
-                      <div className="sm:hidden text-xs text-gray-500">{p.codigo}</div>
-                      <div className="md:hidden text-xs text-gray-500">{p.categoria}</div>
-                    </td>
-                    <td className="hidden sm:table-cell px-4 py-3 text-sm text-gray-900">{p.codigo}</td>
-                    <td className="hidden md:table-cell px-4 py-3 whitespace-nowrap text-sm text-gray-900">R$ {p.preco.toFixed(2)}</td>
-                    <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        p.quantidade > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                      }`}>
-                        {p.quantidade}
-                      </span>
-                    </td>
-                    <td className="hidden lg:table-cell px-4 py-3 text-sm text-gray-900">{p.categoria}</td>
-                    <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
-                      <Button
-                        onClick={() => editarProduto(p)}
-                        className="flex bg-blue-600 mr-2 py-1 px-2 text-xs sm:py-2 sm:px-3 sm:text-sm md:py-2 md:px-4 md:text-base"
-                      >
-                        <span className="hidden sm:inline">Editar</span>
-                      </Button>
-                   
-                    </td>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </div>
-      </div>
+            <div className="border rounded-lg overflow-hidden">
+                <div className="overflow-x-auto">
+                    <Table className="min-w-full divide-y divide-gray-200">
+                        <TableHeader className="bg-gray-50">
+                        <TableRow>
+                            <TableHead className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</TableHead>
+                            <TableHead className="hidden sm:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Código</TableHead>
+                            <TableHead className="hidden md:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Preço</TableHead>
+                            <TableHead className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estoque</TableHead>
+                            <TableHead className="hidden lg:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoria</TableHead>
+                            <TableHead className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</TableHead>
+                        </TableRow>
+                        </TableHeader>
+                        <TableBody className="bg-white divide-y divide-gray-200">
+                        {produtosFiltrados.length === 0 ? (
+                            <TableRow>
+                            <TableCell colSpan={6} className="px-4 py-6 text-center text-gray-500">
+                                Nenhum produto encontrado
+                            </TableCell>
+                            </TableRow>
+                        ) : (
+                            produtosFiltrados.map((p) => (
+                            <TableRow key={p.id} className="hover:bg-gray-50">
+                                <td className="px-4 py-3 text-sm text-gray-900 font-medium">
+                                <div className="font-medium">{p.nome}</div>
+                                <div className="sm:hidden text-xs text-gray-500">{p.codigo}</div>
+                                <div className="md:hidden text-xs text-gray-500">{p.categoria}</div>
+                                </td>
+                                <td className="hidden sm:table-cell px-4 py-3 text-sm text-gray-900">{p.codigo}</td>
+                                <td className="hidden md:table-cell px-4 py-3 whitespace-nowrap text-sm text-gray-900">R$ {p.preco.toFixed(2)}</td>
+                                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                    p.quantidade > 0 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                }`}>
+                                    {p.quantidade}
+                                </span>
+                                </td>
+                                <td className="hidden lg:table-cell px-4 py-3 text-sm text-gray-900">{p.categoria}</td>
+                                <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
+                                <Button
+                                    onClick={() => editarProduto(p)}
+                                    className="bg-blue-600"
+                                >
+                                    Editar
+                                </Button>
+                            
+                                </td>
+                            </TableRow>
+                            ))
+                        )}
+                        </TableBody>
+                    </Table>
+                </div>
+            </div>
 
-        {/* Modal Cadastro */}
-        {showModalCadastro && (
-        <ShowModalCadastro 
-            nome={nome}
-            setNome={setNome}
-            preco={preco}
-            setPreco={setPreco}
-            quantidade={quantidade}
-            setQuantidade={setQuantidade}
-            categoriaSelecionada={categoriaSelecionada}
-            setCategoriaSelecionada={setCategoriaSelecionada}
-            novaCategoria={novaCategoria}
-            setNovaCategoria={setNovaCategoria}
-            categorias={categorias}
-            setCategorias={setCategorias}
-            onCancel={() =>setShowModalCadastro(false)}
-            onConfirm = {cadastrarProduto}
-            onClick = {() => excluirProduto()}
-            />
-        )}
-        {showModalEditar && produtoSelecionado && (
-            <ShowModalEditar 
-                nomeEdit={nomeEdit}
-                setNomeEdit={setNomeEdit}
-                precoEdit={precoEdit}
-                setPrecoEdit={setPrecoEdit}
-                quantEdit={quantEdit}
-                setQuantEdit={setQuantEdit}
-                categoriaEdit={categoriaEdit}
-                setCategoriaEdit={setCategoriaEdit}
-                categorias={categorias}
+            {/* Modal Cadastro */}
+            {showModalCadastro && (
+            <ShowModalCadastro 
+                nome={nome}
+                setNome={setNome}
+                preco={preco}
+                setPreco={setPreco}
+                quantidade={quantidade}
+                setQuantidade={setQuantidade}
+                categoriaSelecionada={categoriaSelecionada}
+                setCategoriaSelecionada={setCategoriaSelecionada}
                 novaCategoria={novaCategoria}
                 setNovaCategoria={setNovaCategoria}
-                onCancel={()=> setShowModalEditar(false)}
-                onConfirm={confirmarEdicao}
-                onClick = {excluirProduto}
-            />
-        )}
-    </div>
+                categorias={categorias}
+                setCategorias={setCategorias}
+                onCancel={() =>setShowModalCadastro(false)}
+                onConfirm = {cadastrarProduto}
+                onClick = {() => excluirProduto()}
+                />
+            )}
+            {showModalEditar && produtoSelecionado && (
+                <ShowModalEditar 
+                    nomeEdit={nomeEdit}
+                    setNomeEdit={setNomeEdit}
+                    precoEdit={precoEdit}
+                    setPrecoEdit={setPrecoEdit}
+                    quantEdit={quantEdit}
+                    setQuantEdit={setQuantEdit}
+                    categoriaEdit={categoriaEdit}
+                    setCategoriaEdit={setCategoriaEdit}
+                    categorias={categorias}
+                    novaCategoria={novaCategoria}
+                    setNovaCategoria={setNovaCategoria}
+                    onCancel={()=> setShowModalEditar(false)}
+                    onConfirm={confirmarEdicao}
+                    onClick = {excluirProduto}
+                />
+            )}
+        </div>
     )
 }
