@@ -10,6 +10,7 @@ router.get("/", async (req, res) => {
   res.json(produtos);
 });
 
+
 router.post("/", async (req, res) => {
   const { nome, codigo, preco, quantidade, categoria } = req.body;
   const produto = await prisma.produto.create({
