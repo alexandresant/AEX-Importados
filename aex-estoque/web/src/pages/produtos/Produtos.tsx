@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 import { data } from "react-router-dom"
-import { Button } from "../components/ui/button"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table"
-import { Input } from "../components/ui/input"
+import { Button } from "../../components/ui/button"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table"
+import { Input } from "../../components/ui/input"
 
 import { ShowModalCadastro } from "./ModalCadastroProduto"
 import { ShowModalEditar } from "./ModalEditarProduto"
 
-import type { Produto } from "../types/produto"
+import type { Produto } from "../../types/produto"
 export function Produtos(){
     const [produtos, setProdutos] = useState<Produto[]>([])
     const [busca, setBusca] = useState('')
@@ -23,6 +23,7 @@ export function Produtos(){
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('')
     const [novaCategoria, setNovaCategoria] = useState('')
     const [categorias, setCategorias] = useState<string[]>(categoriasBase)
+    const [fornecedor, setfornecedor] = useState("")
 
     const [editando, setEditando] = useState(false)
     const [codEditar, setCodEditar] = useState('')
@@ -303,8 +304,7 @@ export function Produtos(){
                             <TableRow key={p.id} className="hover:bg-gray-50">
                                 <td className="px-4 py-3 text-sm text-gray-900 font-medium">
                                 <div className="font-medium">{p.nome}</div>
-                                <div className="sm:hidden text-xs text-gray-500">{p.codigo}</div>
-                                <div className="md:hidden text-xs text-gray-500">{p.categoria}</div>
+                                <div className="sm:hidden text-xs text-gray-500">R${p.preco.toFixed(2)} </div>
                                 </td>
                                 <td className="hidden sm:table-cell px-4 py-3 text-sm text-gray-900">{p.codigo}</td>
                                 <td className="hidden md:table-cell px-4 py-3 whitespace-nowrap text-sm text-gray-900">R$ {p.preco.toFixed(2)}</td>

@@ -1,5 +1,5 @@
-import { Button } from "../components/ui/button"
-import { Input } from "../components/ui/input"
+import { Button } from "../../components/ui/button"
+import { Input } from "../../components/ui/input"
 import { 
     Dialog,
     DialogContent,
@@ -7,10 +7,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger
-} from "../components/ui/dialog"
-
-import type { AbrirModal } from "../types/abrirModal"
-import { DialogClose } from "@radix-ui/react-dialog"
+} from "../../components/ui/dialog"
 
 export function ModalCadastroFornecedores(props){
     return(
