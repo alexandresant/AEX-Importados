@@ -47,5 +47,30 @@ router.put("/:codigo/editar", async(req, res) =>{
     }
 })
 
+//Excluir fornecedor
+router.delete("/:codigo/excluir", async(req, res) =>{
+    const { codigo } = req.params
+
+    try{
+        const fornecedor = await prisma.fornecedor.findUnique({ where: { codigo } })
+
+        if(!fornecedor){
+            return(
+                res.status(404).json({ error: "Produto não encontrado!" })
+            )
+        }
+        const fornecedorAtualizado = await prisma.fornecedor.delete({
+            where: { codigo }
+        })
+        return(
+            res.json(fornecedorAtualizado)
+        )
+    }
+    catch(error){
+        console.error("Erro ao excluir fornecedor!")
+        res.status(500).json({ error: "Erro interno no servidor!" })
+    }
+})
+
 
 export default router

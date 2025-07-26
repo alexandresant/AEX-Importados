@@ -16,9 +16,9 @@ export function ModalEditarFornecedores({
     setTelefone,
     email,
     setEmail,
-    onConfirm
+    onConfirm,
+    onDelete
 }: ModalEditarFornecedoresProps){
-    //console.log(nome)
     return(
         <div>
             <Dialog
@@ -58,6 +58,7 @@ export function ModalEditarFornecedores({
                     </Button>
                     <Button
                         className="bg-red-700"
+                        onClick={onDelete}
                     >
                         Excluir
                     </Button>

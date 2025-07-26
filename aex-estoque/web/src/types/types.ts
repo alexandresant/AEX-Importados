@@ -10,4 +10,10 @@ export interface ModalEditarFornecedoresProps{
     email: string
     setEmail: React.Dispatch<React.SetStateAction<string>>
     onConfirm: () => void
+    onDelete: () => void
+}
+
+export interface LoginPageProps{
+    login: string
+    senha: string
 }

@@ -139,12 +139,46 @@ export function CadastroFornecedor(){
         setFornecedorSelecionado(p)
     }
 
+    async function excluirFornecedor(){
+        if(!fornecedorSelecionado){
+            return
+        }
+        try{
+            const res = await fetch(`http://192.168.100.44:3001/fornecedores/${fornecedorSelecionado.codigo}/excluir`,{
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" }
+            })
+            if(!res.ok){
+                throw new Error("Falha ao exluir fornecedor")
+            }
+            const fornecedorAtualizado = await res.json()
+
+            setFornecedores((prevFornecedor) =>
+                prevFornecedor.filter((f) => f.codigo !== fornecedorSelecionado.codigo)
+            )
+            setNome("")
+            setContato("")
+            setEmail("")
+            setTelefone("")
+            setShowModalEditar(false)
+        }
+        catch(error){
+            alert("Erro ao atualizar quantidade: " + error.message)
+        }
+    }
+
    useEffect(() =>{
     fetch("http://192.168.100.44:3001/fornecedores")
     .then(res => res.json())
     .then(data => setFornecedores(data))
     .catch(err => console.error("Erro ao carregar fornecedores: ", err))
    })
+
+   useEffect(() =>{
+    if(!showModalEditar){
+        limparFormularioCadastro()
+    }
+   }, [showModalEditar])
 
     return(
         <div className="bg-white rounded-lg p-2 max-w-full mx-auto overflow-hidden">
@@ -197,7 +231,12 @@ export function CadastroFornecedor(){
                     {showModalCadastro &&
                         <ModalCadastroFornecedores 
                             open={showModalCadastro}
-                            openChange={setShowModalCadastro}    
+                            openChange={(isOpen) =>{
+                                setShowModalCadastro(isOpen)
+                                if(!isOpen){
+                                    limparFormularioCadastro()
+                                }
+                            }}    
                             nome={nome}
                             setNome={setNome}
                             contato={contato}
@@ -213,7 +252,13 @@ export function CadastroFornecedor(){
                     {showModalEditar && 
                         <ModalEditarFornecedores 
                             open={showModalEditar}
-                            openChange={setShowModalEditar}
+                            openChange={(isOpen) =>{
+                                setShowModalEditar(isOpen)
+                                if(!isOpen){
+                                    limparFormularioCadastro
+                                    setFornecedorSelecionado(null)
+                                }
+                            }}
                             nome={nome}
                             setNome={setNome}
                             contato={contato}
@@ -223,6 +268,7 @@ export function CadastroFornecedor(){
                             email={email}
                             setEmail={setEmail}
                             onConfirm={confirmarEdicao}
+                            onDelete={excluirFornecedor}
                         />
                     }
                 </CardContent>
