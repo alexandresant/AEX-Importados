@@ -13,7 +13,9 @@ export function ModalCadastroFornecedores(props){
     return(
         <>
             <Dialog open={props.open} onOpenChange={props.openChange}>          
-                <DialogContent className="sm:max-w-[425px]">
+                <DialogContent 
+                    onOpenAutoFocus={(e) => e.preventDefault()}
+                    className="sm:max-w-[425px]">
                     <DialogHeader>
                         <DialogTitle>Cadastro de fornecedores</DialogTitle>
                     </DialogHeader>
@@ -24,6 +26,7 @@ export function ModalCadastroFornecedores(props){
                             className="m-1"
                             value={props.nome}
                             onChange={(e)=> props.setNome(e.target.value)}
+                            autoFocus={false}
                         />
                         <Input 
                             placeholder="Contato"

@@ -17,3 +17,15 @@ export interface LoginPageProps{
     login: string
     senha: string
 }
+
+export interface AuthContextType{
+    isAuthenticated: boolean
+    login: () => void
+    logout: () => void
+}
+
+export interface UserProps {
+    email: string,
+    senha: string,
+    nome: string
+}

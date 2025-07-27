@@ -4,13 +4,49 @@ import { Button } from "../../components/ui/button"
 import { Form } from "../../components/ui/form"
 import { Label } from "../../components/ui/label"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../../context/AuthContext"
+import type { UserProps, LoginPageProps } from "../../types/types"
+
+import logo from "../../assets/AEX-Logo.png"
+
+
+const loginSenha: UserProps[] = [
+    {
+        email: "alexandresant27@gmail.com",
+        senha: "@Tetadenega1401",
+        nome: "ALexandre"
+    }
+]
 
 export function Login(){
+    const navigate = useNavigate()
+    const auth = useAuth()
+    
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
+    //const [loginSenha, setLoginSenha] = useState<UserProps[]>([])
+
+    function conferirSenha(){
+        loginSenha.find((l) =>{
+            if(l.email === email && l.senha === senha){
+                console.log("Olá: " + l.nome)
+                auth.login()
+                navigate("/dashboard")
+                setEmail("")
+                setSenha("")
+            }
+            else{
+                console.log("Deu errado")
+            }
+        })
+
+    }
     return(
         <div className="flex items-center justify-center">
-            <Card className="w-96">
+            
+            <Card className="w-[350x]">
+                <img src={logo} alt="logo-aeximportados" className="w-[100px] mx-auto mt-4" />
                 <CardHeader>
                     <CardTitle >Login</CardTitle>
                     <CardDescription>Faça login para ter acesso</CardDescription>
@@ -28,12 +64,17 @@ export function Login(){
                     <Input
                         type="password"
                         className="******"
-                        value={email}
+                        value={senha}
                         onChange={(e) => setSenha(e.target.value)}
                     />
-                    <Button className=" w-full mt-2">
+                    <Button 
+                        className=" w-full mt-2"
+                        onClick={() =>conferirSenha()}    
+                    >
                         Login
                     </Button>
+
+                    <a href="/cadastrar">Não possui cadastro?</a>
                 </CardContent>
                 
             </Card>
