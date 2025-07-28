@@ -6,7 +6,7 @@ import { Label } from "../../components/ui/label"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
-import type { UserProps, LoginPageProps } from "../../types/types"
+import type { UserProps } from "../../types/types"
 
 import logo from "../../assets/AEX-Logo.png"
 
@@ -74,7 +74,7 @@ export function Login(){
                         Login
                     </Button>
 
-                    <a href="/cadastrar">Não possui cadastro?</a>
+                    <a className="block text-sm text-center mt-2 underline" href="/cadastroUsuario">Não possui cadastro?</a>
                 </CardContent>
                 
             </Card>

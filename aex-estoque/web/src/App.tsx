@@ -6,10 +6,11 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { Login } from './pages/login/login'
 import { Navigate } from 'react-router-dom' 
 import { PrivateRoute } from './pages/login/PrivateRoute'
+import { CadastroUsuarios } from "./pages/login/CadastroUsuario"
 
 export default function App() {
   const location = useLocation()
-  const isLoginPage = location.pathname === "/login"
+  const isLoginPage = location.pathname === "/login" || "/cadastroUsuario"
   
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -24,6 +25,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/login"/>}/>
             <Route path="/login" element={<Login />}/>
+            <Route path="/cadastroUsuario" element={<CadastroUsuarios />}/>
 
             <Route 
               path="/produtos"  
