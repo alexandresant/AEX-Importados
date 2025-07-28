@@ -22,6 +22,7 @@ const formSchema = z.object({
 export function CadastroUsuarios(){
     const navigate =  useNavigate()
 
+
     type CadastroFormData = z.infer<typeof formSchema>
 
     const form = useForm<CadastroFormData>({
@@ -34,11 +35,31 @@ export function CadastroUsuarios(){
     })
 
     function onSubmit(data: CadastroFormData){
-        console.log("Usuário Cadastrado", data)
-        
+       //console.log("Usuário Cadastrado", data)
+        cadastrarUsuarios(data)
         form.reset()
 
         navigate("/login")
+    }
+    async function cadastrarUsuarios(data: CadastroFormData){
+        try{
+            const response = await fetch("http://192.168.100.44:3001/usuarios", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    nome: data.nome,
+                    email: data.email,
+                    senha: data.senha
+                })
+            })
+
+            if(!response){
+                throw new Error("Erro ao cadastrar usuário")
+            }
+        }
+        catch(error){
+            alert("Falha ao cadastrar Usuaŕio" + error)
+        }
     }
     return(
         <div className="flex items-center justify-center">

@@ -3,14 +3,14 @@ import { Sidebar } from './components/Sidebar'
 import { Produtos } from './pages/produtos/Produtos'
 import { CadastroFornecedor} from './pages/fornecedores/Fornecedores'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
-import { Login } from './pages/login/login'
+import { Login } from './pages/login/Login'
 import { Navigate } from 'react-router-dom' 
 import { PrivateRoute } from './pages/login/PrivateRoute'
 import { CadastroUsuarios } from "./pages/login/CadastroUsuario"
 
 export default function App() {
   const location = useLocation()
-  const isLoginPage = location.pathname === "/login" || "/cadastroUsuario"
+  const isLoginPage = location.pathname === "/login" || location.pathname === "/cadastroUsuario"
   
   return (
     <div className="flex min-h-screen bg-gray-100">

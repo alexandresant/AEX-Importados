@@ -1,23 +1,15 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
 import { Button } from "../../components/ui/button"
 import { Form } from "../../components/ui/form"
 import { Label } from "../../components/ui/label"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
 import type { UserProps } from "../../types/types"
 
 import logo from "../../assets/AEX-Logo.png"
-
-
-const loginSenha: UserProps[] = [
-    {
-        email: "alexandresant27@gmail.com",
-        senha: "@Tetadenega1401",
-        nome: "ALexandre"
-    }
-]
 
 export function Login(){
     const navigate = useNavigate()
@@ -25,7 +17,7 @@ export function Login(){
     
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
-    //const [loginSenha, setLoginSenha] = useState<UserProps[]>([])
+    const [loginSenha, setLoginSenha] = useState<UserProps[]>([])
 
     function conferirSenha(){
         loginSenha.find((l) =>{
@@ -42,6 +34,15 @@ export function Login(){
         })
 
     }
+
+    useEffect(() =>{
+        fetch("http://192.168.100.44:3001/usuarios")
+        .then(res => res.json())
+        .then(data => setLoginSenha(data))
+        .catch(err => console.error("Erro ao carregar usuarios", err))
+    })
+
+
     return(
         <div className="flex items-center justify-center">
             
