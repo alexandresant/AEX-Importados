@@ -1,5 +1,6 @@
-import { Button } from "../components/ui/button"
-import { Input } from "../components/ui/input"
+import { Button } from "../../components/ui/button"
+import { Input } from "../../components/ui/input"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select" 
 
 export function ShowModalCadastro(props){
     return(
@@ -33,22 +34,31 @@ export function ShowModalCadastro(props){
                         value={props.quantidade}
                         onChange={(e) => props.setQuantidade(e.target.value)}
                     />
-                    <select
-                        className="border px-3 py-2 rounded m-2"
+                    
+                    <Select
                         value={props.categoriaSelecionada}
-                        onChange={(e) => props.setCategoriaSelecionada(e.target.value)}
+                        onValueChange={(e) => props.setCategoriaSelecionada(e)}
                     >
-                        <option value="">{props.categoriaSelecionada}</option>
-                        {props.categorias.map((cat) => (
-                            <option key={cat} value={cat}>
-                                {cat}
-                            </option>
-                        ))}
-                        <option value="nova">+ Nova categoria</option>
-                    </select>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Categoria"/>
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {props.categorias.map((cat) =>(
+                                    <SelectItem
+                                        key={cat}
+                                        value={cat}
+                                    >
+                                        {cat}
+                                    </SelectItem>
+                                ))}
+                                <SelectItem value="nova">+ Nova categoria</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
 
                     {props.categoriaSelecionada === 'nova' && (
-                        <input
+                        <Input
                             type="text"
                             placeholder="Digite nova categoria"
                             className=" border px-3 py-2 rounded"
