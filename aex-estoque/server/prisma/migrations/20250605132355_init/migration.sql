@@ -6,7 +6,6 @@ CREATE TABLE "Produto" (
     "preco" DOUBLE PRECISION NOT NULL,
     "quantidade" INTEGER NOT NULL,
     "categoria" TEXT NOT NULL,
-
     CONSTRAINT "Produto_pkey" PRIMARY KEY ("id")
 );
 CREATE TABLE "Fornecedor"(
@@ -19,8 +18,17 @@ CREATE TABLE "Fornecedor"(
 
     CONSTRAINT "Fornecedor_pkey" PRIMARY KEY ("id")
 );
+CREATE TABLE "Usuario"(
+    "id" SERIAL NOT NULL,
+    "nome" TEXT NOT NULL,
+    "senha" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+
+    CONSTRAINT "Usuario_pkey" PRIMARY KEY ("id")
+);
 
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Produto_codigo_key" ON "Produto"("codigo");
 CREATE UNIQUE INDEX "Fornecedor_codigo_key" ON "Fornecedor"("codigo");
+CREATE UNIQUE INDEX "Usuario_codigo_key" ON "Usuario"("id");
