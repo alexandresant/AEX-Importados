@@ -56,7 +56,7 @@ router.delete("/:codigo/excluir", async(req, res) =>{
 
         if(!fornecedor){
             return(
-                res.status(404).json({ error: "Produto não encontrado!" })
+                res.status(404).json({ error: "Fornecedor não encontrado!" })
             )
         }
         const fornecedorAtualizado = await prisma.fornecedor.delete({

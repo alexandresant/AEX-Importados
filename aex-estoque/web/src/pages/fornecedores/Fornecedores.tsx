@@ -149,7 +149,7 @@ export function CadastroFornecedor(){
                 headers: { "Content-Type": "application/json" }
             })
             if(!res.ok){
-                throw new Error("Falha ao exluir fornecedor")
+                throw new Error("Falha ao excluir fornecedor")
             }
             const fornecedorAtualizado = await res.json()
 
@@ -163,7 +163,7 @@ export function CadastroFornecedor(){
             setShowModalEditar(false)
         }
         catch(error){
-            alert("Erro ao atualizar quantidade: " + error.message)
+            alert("Erro ao excluir fornecedor: " + error.message)
         }
     }
 
@@ -172,7 +172,7 @@ export function CadastroFornecedor(){
     .then(res => res.json())
     .then(data => setFornecedores(data))
     .catch(err => console.error("Erro ao carregar fornecedores: ", err))
-   })
+   }, [])
 
    useEffect(() =>{
     if(!showModalEditar){
@@ -255,7 +255,7 @@ export function CadastroFornecedor(){
                             openChange={(isOpen) =>{
                                 setShowModalEditar(isOpen)
                                 if(!isOpen){
-                                    limparFormularioCadastro
+                                    limparFormularioCadastro()
                                     setFornecedorSelecionado(null)
                                 }
                             }}

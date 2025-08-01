@@ -7,6 +7,7 @@ import { Login } from './pages/login/Login'
 import { Navigate } from 'react-router-dom' 
 import { PrivateRoute } from './pages/login/PrivateRoute'
 import { CadastroUsuarios } from "./pages/login/CadastroUsuario"
+import { EntradasSaidas } from './pages/entradas-saidas/EntradasSaidas'
 
 export default function App() {
   const location = useLocation()
@@ -42,6 +43,17 @@ export default function App() {
                     <CadastroFornecedor/>
                   </PrivateRoute>} 
             />
+
+            <Route
+              path="/movimentacoes"
+              element={
+                <PrivateRoute>
+                  <EntradasSaidas />
+                </PrivateRoute>
+              }
+            >
+                
+            </Route>
           </Routes>
       </main>
     </div>

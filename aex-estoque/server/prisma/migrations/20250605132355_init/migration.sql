@@ -6,7 +6,6 @@ CREATE TABLE "Produto" (
     "preco" DOUBLE PRECISION NOT NULL,
     "quantidade" INTEGER NOT NULL,
     "categoria" TEXT NOT NULL,
-
     CONSTRAINT "Produto_pkey" PRIMARY KEY ("id")
 );
 CREATE TABLE "Fornecedor"(
