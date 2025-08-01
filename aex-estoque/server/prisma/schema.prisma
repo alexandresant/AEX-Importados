@@ -8,12 +8,15 @@ datasource db {
 }
 
 model Produto {
-  id         Int     @id @default(autoincrement())
-  nome       String
-  codigo     String  @unique
-  preco      Float
-  quantidade Int
-  categoria  String
+  id                      Int     @id @default(autoincrement())
+  nome                    String
+  codigo                  String  @unique
+  preco                   Float
+  quantidade              Int
+  categoria               String
+  fornecedorId            Int?
+  fornecedor              Fornecedor? @relation(fields: [fornecedorId], references: [id])
+  movimetacoesEstoque     Estoque[]
 }
 
 model Fornecedor {
@@ -23,11 +26,47 @@ model Fornecedor {
   contato   String
   telefone  String 
   email     String
+  produtos Produto[]
 }
 
 model Usuario {
-  id        Int @id @default(autoincrement())
-  nome      String
-  senha     String
-  email     String
+  id                  Int @id @default(autoincrement())
+  nome                String
+  senha               String
+  email               String
+  movimetacoesEstoque Estoque[]
+}
+
+enum TipoMovimentacao {
+  ENTRADA
+  SAIDA
+}
+
+enum MotivoEntrada {
+  COMPRA
+  DEVOLUCAO
+  AJUSTE_ESTOQUE
+  OUTROS
+}
+
+enum MotivoSaida {
+  VENDA
+  CONSUMO
+  TROCA
+  PERDA_AVARIA
+  AJUSTE_ESTOQUE
+  OUTROS
+}
+
+model Estoque {
+  id Int @id @default(autoincrement())
+  produtoId Int
+  produto Produto @relation(fields: [produtoId], references: [id])
+  quantidade Int
+  tipoMovimentacao TipoMovimentacao
+  motivoEntrada MotivoEntrada?
+  motivoSaida MotivoSaida?
+  dataMovimentacao DateTime @default(now())
+  usuarioId Int?
+  Usuario Usuario? @relation(fields: [usuarioId], references: [id])
 }
