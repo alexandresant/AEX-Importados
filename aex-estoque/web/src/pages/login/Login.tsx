@@ -46,7 +46,7 @@ export function Login(){
     return(
         <div className="flex items-center justify-center">
             
-            <Card className="w-[550px]">
+            <Card className="w-[350x]">
                 <img src={logo} alt="logo-aeximportados" className="w-[100px] mx-auto mt-4" />
                 <CardHeader>
                     <CardTitle >Login</CardTitle>
@@ -69,13 +69,13 @@ export function Login(){
                         onChange={(e) => setSenha(e.target.value)}
                     />
                     <Button 
-                        className=" w-full mt-2 bg-blue-700"
+                        className=" w-full mt-2"
                         onClick={() =>conferirSenha()}    
                     >
                         Login
                     </Button>
 
-                    <a className="block text-sm text-center mt-2 underline text-muted-foreground" href="/cadastroUsuario">Não possui cadastro?</a>
+                    <a className="block text-sm text-center mt-2 underline" href="/cadastroUsuario">Não possui cadastro?</a>
                 </CardContent>
                 
             </Card>

@@ -1,24 +1,13 @@
-import { Key } from "lucide-react"
 import { Button } from "../../components/ui/button"
-import { Card } from "../../components/ui/card"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../../components/ui/dialog"
 import { Input } from "../../components/ui/input"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select" 
 
 export function ShowModalCadastro(props){
     return(
-        <div>
-            <Dialog open={props.open} onOpenChange={props.openChange}>
-                <DialogContent
-                    onOpenAutoFocus={(e) => e.preventDefault()}
-                    className="sm:max-w-[425px]"
-                >
-                    <DialogHeader>
-                        <DialogTitle>Cadastrar Produto</DialogTitle>
-                        <DialogDescription>Todos os campos são obrigatórios</DialogDescription>
-                    </DialogHeader>
-                    
-                    <div className="space-y-3">
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 px-2">
+            <div className="bg-white rounded p-4 w-full max-w-md mx-2">
+                <h2 className="text-xl font-bold mb-4">Cadastrar Produto</h2>
+                <div className="space-y-3">
                     <Input 
                         type="text" 
                         placeholder="Nome"
@@ -77,40 +66,22 @@ export function ShowModalCadastro(props){
                             onChange={(e) => props.setNovaCategoria(e.target.value)}
                         />
                     )}
-
-                    <Select
-                        value={props.fornecedorSelecionado}
-                        onValueChange={(e) => props.setFornecedorSelecionado(e)}
-                    >
-                        <SelectTrigger>
-                            <SelectValue placeholder="Selecione um fornecedor"/>
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                {props.fornecedor.map((f) => (
-                                    <SelectItem
-                                        key={f.id}
-                                        value={f.id}
-                                    >
-                                        {f.nome}
-                                    </SelectItem>
-                                ))}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
                     <div className="flex justify-end space-x-2">
                         <Button
+                            onClick={props.onCancel}
+                            className="px-4 py-2 rounded text-white bg-red-600 hover:bg-red-700 border-gray-300"
+                        >
+                            Cancelar
+                        </Button>
+                        <Button
                             onClick={props.onConfirm}
-                            className="w-full px-4 py-2 rounded text-white bg-blue-600  hover:bg-blue-700 "
+                            className="px-4 py-2 rounded text-white bg-blue-600  hover:bg-blue-700 "
                         >
                             Confirmar
                         </Button>
                     </div>
                 </div>
-                </DialogContent> 
-
-                
-            </Dialog>
+            </div>
         </div>
     )
 }
