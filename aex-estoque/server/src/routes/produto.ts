@@ -6,15 +6,20 @@ const router = Router();
 const prisma = new PrismaClient();
 
 router.get("/", async (req, res) => {
-  const produtos = await prisma.produto.findMany();
+  const produtos = await prisma.produto.findMany({
+    include: {
+      fornecedor: true
+    },
+  })
   res.json(produtos);
 });
 
 
 router.post("/", async (req, res) => {
-  const { nome, codigo, preco, quantidade, categoria } = req.body;
+  const { nome, codigo, preco, quantidade, categoria, fornecedorId } = req.body;
   const produto = await prisma.produto.create({
-    data: { nome, codigo, preco, quantidade, categoria },
+    data: { nome, codigo, preco, quantidade, categoria, fornecedorId },
+    include: { fornecedor: true }
   });
   res.json(produto);
 });

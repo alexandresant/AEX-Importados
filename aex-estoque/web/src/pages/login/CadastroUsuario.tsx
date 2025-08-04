@@ -63,7 +63,7 @@ export function CadastroUsuarios(){
     }
     return(
         <div className="flex items-center justify-center">
-            <Card className="w-[350x]">
+            <Card className="w-[550px]">
                 <img src={logo} className="w-[100px] mx-auto mt-4"/>
                 <CardHeader>
                     <CardTitle>Cadastro de Usuário</CardTitle>
@@ -126,11 +126,11 @@ export function CadastroUsuarios(){
                                     </FormItem>
                                 )}
                             />
-                            <Button type="submit" className="w-full mt-2">Cadastrar</Button>
+                            <Button type="submit" className="w-full mt-2 bg-blue-700">Cadastrar</Button>
                         </form>
                     </Form>
 
-                    <a className="block text-sm text-center mt-2 underline" href="/login">Já tem conta? Faça login</a>
+                    <a className="block text-sm text-center mt-2 underline text-muted-foreground" href="/login">Já tem conta? Faça login</a>
                 </CardContent>
             </Card>
         </div>
