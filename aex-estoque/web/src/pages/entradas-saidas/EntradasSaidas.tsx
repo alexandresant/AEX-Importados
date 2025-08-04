@@ -1,0 +1,454 @@
+import { Button } from "../../components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../components/ui/form"
+import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/popover"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../../components/ui/command"
+import { ChevronDownIcon, Save } from "lucide-react"
+
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+
+import { useForm } from "react-hook-form"
+import { useState } from "react"
+import { cn } from "../../lib/utils"
+import { Input } from "../../components/ui/input"
+
+interface EstoqueProps{
+    id: number,
+    produtoId: number,
+    produto: string,
+    quantidade: number,
+    tipoMovimentacao: string,
+    dataMovimentacao: Date,
+    //usuario: string
+}
+
+const mockProdutos = [
+    {
+        id: 1,
+        nome: "SmartWatch Pro",
+        codigo: "PROD-1753713674399",
+        preco: 350.12,
+        quantidadeEstoque: 10,
+        categoria: "Eletrônico",
+        fornecedor: "ForneceWatch"
+    },
+    {
+        id: 2,
+        nome: "Fone Bluetooth",
+        codigo: "PROD-2654825685400",
+        preco: 129.90,
+        quantidadeEstoque: 25,
+        categoria: "Eletrônico",
+        fornecedor: "AudioTech"
+    },
+    {
+        id: 3,
+        nome: "Mochila Executiva",
+        codigo: "PROD-3987654321001",
+        preco: 199.99,
+        quantidadeEstoque: 15,
+        categoria: "Acessórios",
+        fornecedor: "BagMaster"
+    },
+    {
+        id: 4,
+        nome: "Notebook Ultra",
+        codigo: "PROD-4123456789012",
+        preco: 4299.00,
+        quantidadeEstoque: 8,
+        categoria: "Eletrônico",
+        fornecedor: "TechPlus"
+    },
+    {
+        id: 5,
+        nome: "Garrafa Térmica",
+        codigo: "PROD-5234567890123",
+        preco: 79.50,
+        quantidadeEstoque: 30,
+        categoria: "Utilitários",
+        fornecedor: "TermoBras"
+    },
+    {
+        id: 6,
+        nome: "Mouse Gamer",
+        codigo: "PROD-6345678901234",
+        preco: 159.00,
+        quantidadeEstoque: 18,
+        categoria: "Eletrônico",
+        fornecedor: "GameGear"
+    },
+    {
+        id: 7,
+        nome: "Caderno Universitário",
+        codigo: "PROD-7456789012345",
+        preco: 29.90,
+        quantidadeEstoque: 50,
+        categoria: "Papelaria",
+        fornecedor: "PaperLine"
+    },
+    {
+        id: 8,
+        nome: "Power Bank 10000mAh",
+        codigo: "PROD-8567890123456",
+        preco: 89.00,
+        quantidadeEstoque: 12,
+        categoria: "Eletrônico",
+        fornecedor: "PowerCharge"
+    },
+    {
+        id: 9,
+        nome: "Kit Canetas Coloridas",
+        codigo: "PROD-9678901234567",
+        preco: 24.50,
+        quantidadeEstoque: 40,
+        categoria: "Papelaria",
+        fornecedor: "ColorPen"
+    },
+    {
+        id: 10,
+        nome: "Suporte para Notebook",
+        codigo: "PROD-0789012345678",
+        preco: 65.80,
+        quantidadeEstoque: 20,
+        categoria: "Acessórios",
+        fornecedor: "ErgoDesk"
+    }
+]
+
+const motivosEntrada = [
+  { value: "Compra", label: "Compra" },
+  { value: "Devolucão", label: "Devolução" },
+  { value: "Ajuste de estoque", label: "Ajuste de estoque" },
+]
+
+const motivosSaida = [
+  { value: "venda", label: "Venda" },
+  { value: "Consumo interno", label: "Consumo Interno" },
+  { value: "Troca", label: "Troca" },
+  { value: "Perda/Avaria", label: "Perda/Avaria" },
+  { value: "Ajuste de estoque", label: "Ajuste de estoque" },
+]
+
+const formSchemaEntrada = z.object({
+    produtoId: z.number().min(1, "Selecione um produto válido!" ),
+    quantidadeEntrada: z.number().min(1, "Quantidade é obrigatório"),
+    motivoEntrada: z.enum(["Compra","Devolucão", "Ajuste de estoque"], "Você deve indicar um motivo de entrada")
+})
+
+const formSchemaSaida = z.object({
+    produtoId: z.number().min(1, "Selecione um produto válido!"),
+    quantidadeSaida: z.number().min(1, "Quantidade é obrigatório"),
+    motivoSaida: z.enum(["venda", "Consumo interno", "Troca", "Perda/Avaria", "Ajuste de estoque"]),
+
+})
+
+export function EntradasSaidas(){
+
+    const [openPopoverEntrada, setOpenPopoverEntrada] = useState(false)
+    const [openPopoverSaida, setOpenPopoverSaida] = useState(false)
+    const [formKeyEntrada, setFormKeyEntrada] = useState(Date.now())
+    const [formKeySaida, setFormKeySaida] = useState(Date.now())
+
+    let estoque: EstoqueProps[] = []
+
+    type SaidaFormData = z.infer<typeof formSchemaSaida>
+    type EntradaFormData = z.infer<typeof formSchemaEntrada>
+
+    const formEntrada = useForm<EntradaFormData>({
+        resolver: zodResolver(formSchemaEntrada),
+        defaultValues: {
+            produtoId: 0,
+            quantidadeEntrada: 0,
+            motivoEntrada: undefined
+        }
+     
+    })
+
+    const formSaida = useForm<SaidaFormData>({
+        resolver:zodResolver(formSchemaSaida),
+        defaultValues: {
+            produtoId: 0,
+            quantidadeSaida: 0,
+            motivoSaida: undefined
+        }
+    })
+
+    function onSubmitEntrada(data: EntradaFormData){
+
+    }
+
+    function onSubmitSaida(data: SaidaFormData){
+
+    }
+
+    return(
+        <div>
+            <Card>
+                <CardHeader>
+                    <CardTitle>Entradas e Saídas</CardTitle>
+                    <CardDescription>Registrar Entradas e Saídas</CardDescription>
+                </CardHeader>
+
+                <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Entradas</CardTitle>
+                            <CardDescription>Registrar Entradas</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <Form
+                                key={formKeyEntrada}
+                                {...formEntrada}
+                            >
+                                <form onSubmit={formEntrada.handleSubmit(onSubmitEntrada)}>
+                                    <FormField
+                                        control={formEntrada.control}
+                                        name="produtoId"
+                                        render={({ field }) =>(
+                                            <FormItem>
+                                                <FormLabel>Produto</FormLabel>
+                                                <FormControl>
+                                                    <Popover open={openPopoverEntrada} onOpenChange={setOpenPopoverEntrada}>
+                                                        <PopoverTrigger asChild>
+                                                            <Button
+                                                                variant="outline"
+                                                                role="combobox"
+                                                                aria-expanded={openPopoverEntrada}
+                                                                className={cn(
+                                                                    "w-full justify-between hover:bg-transparent font-normal",
+                                                                    !field.value ? "text-muted-foreground hover:text-muted-foreground" : ""
+                                                                )}
+                                                            >
+                                                                {mockProdutos.find(f => f.id === field.value)?.nome ?? "Selecione um produto"}                                                               
+                                                                <ChevronDownIcon 
+                                                                    size={16}
+                                                                    className="text-muted-foreground/80 shrink-0"
+                                                                    aria-hidden="true"
+                                                                />
+                                                            </Button>
+                                                        </PopoverTrigger>
+                                                        <PopoverContent className="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start">
+                                                            <Command>
+                                                                <CommandInput placeholder="Pesquisar produto" />
+                                                                <CommandList>
+                                                                    <CommandEmpty>Nenhum produto encontrado</CommandEmpty>
+                                                                    <CommandGroup>
+                                                                        {mockProdutos.map((p) =>(
+                                                                            <CommandItem 
+                                                                                key={p.id}
+                                                                                value={p.nome}
+                                                                                onSelect={() =>{
+                                                                                    field.onChange(p.id)
+                                                                                    setOpenPopoverEntrada(false)
+                                                                                }}
+                                                                            >
+                                                                                {p.nome}
+                                                                            </CommandItem>
+                                                                        ))}
+                                                                    </CommandGroup>
+                                                                </CommandList>
+                                                            </Command>
+                                                        </PopoverContent>
+                                                    </Popover>
+                                                </FormControl>  
+                                                <FormMessage />          
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField 
+                                        control={formEntrada.control}
+                                        name="quantidadeEntrada"
+                                        render={({ field }) =>(
+                                            <FormItem>
+                                                <FormLabel>Quantidade</FormLabel>
+                                                <FormControl>
+                                                    <Input 
+                                                        type="number"
+                                                        placeholder="Digite a quantidade"
+                                                        {...field}
+                                                        onChange={(e) => field.onChange(Number(e.target.value))}
+                                                        value={field.value || ""}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage /> 
+                                            </FormItem>
+                                            
+                                        )}
+                                    />
+
+                                    <FormField 
+                                        control={formEntrada.control}
+                                        name="motivoEntrada"
+                                        render={({ field }) =>(
+                                            <FormItem>
+                                                <FormLabel>Motivo</FormLabel>
+                                                <FormControl>
+                                                    <Select
+                                                        value={field.value}
+                                                        onValueChange={field.onChange}
+                                                    >
+                                                        <SelectTrigger>
+                                                            <SelectValue placeholder="Selecione um motivo"/>
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {motivosEntrada.map((m) =>(
+                                                                <SelectItem
+                                                                    key={m.value}
+                                                                    value={m.value}
+                                                                >
+                                                                    {m.label}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <Button className="w-full mt-2 bg-blue-700 hover:bg-blue-600">
+                                        Registrar entrada
+                                        <Save />
+                                    </Button>  
+                                     
+                                </form>
+                            </Form>               
+                        </CardContent>
+                    </Card>
+                        
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Saídas</CardTitle>
+                            <CardDescription>Registrar Saídas</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <Form 
+                                key={formKeySaida}
+                                {...formSaida}
+                            >
+                                <form onSubmit={formSaida.handleSubmit(onSubmitSaida)}>
+                                    <FormField 
+                                        control={formSaida.control}
+                                        name="produtoId"
+                                        render={({ field })=>(
+                                            <FormItem>
+                                                <FormLabel>Produto</FormLabel>
+                                                <FormControl>
+                                                    <Popover open={openPopoverSaida} onOpenChange={setOpenPopoverSaida}>
+                                                        <PopoverTrigger asChild>
+                                                            <Button
+                                                                variant="outline"
+                                                                role="combobox"
+                                                                aria-expanded={openPopoverSaida}
+                                                                className={cn(
+                                                                    "w-full justify-between hover:bg-transparent font-normal",
+                                                                    !field.value ? "text-muted-foreground hover:text-muted-foreground" : ""
+                                                                )}
+                                                            >
+                                                                {mockProdutos.find(f => f.id === field.value)?.nome ?? "Selecione um produto"}
+                                                                <ChevronDownIcon
+                                                                    size={16}
+                                                                    className="text-muted-foreground/80 shrink-0"
+                                                                    aria-hidden="true" 
+                                                                />
+                                                            </Button>
+                                                        </PopoverTrigger>
+                                                        <PopoverContent className="border-input w-full min-w-[var(--radix-popper-anchor-width)] p-0" align="start">
+                                                            <Command>
+                                                                <CommandInput placeholder="Pesquisar produto"/>
+                                                                <CommandList>
+                                                                    <CommandEmpty>Nenhum produto encontrado</CommandEmpty>
+                                                                    <CommandGroup>
+                                                                        {mockProdutos.map((p) =>(
+                                                                            <CommandItem
+                                                                                key={p.id}
+                                                                                value={p.nome}
+                                                                                onSelect={() =>{
+                                                                                    field.onChange(p.id)
+                                                                                    setOpenPopoverSaida(false)
+                                                                                }}
+                                                                            >   
+                                                                                {p.nome}
+                                                                            </CommandItem>
+                                                                        ))}
+                                                                    </CommandGroup>
+                                                                </CommandList>
+                                                            
+                                                            </Command>
+                                                        </PopoverContent>
+                                                    </Popover>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField 
+                                        control={formSaida.control}
+                                        name="quantidadeSaida"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Quantidade</FormLabel>
+                                                <FormControl>
+                                                    <Input 
+                                                        type="number"
+                                                        placeholder="Digite uma quantidade"
+                                                        {...field}
+                                                        onChange={(e) => field.onChange(Number(e.target.value))}
+                                                        value={field.value || ""}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                            
+                                        )}
+                                    />
+
+                                    <FormField 
+                                        control={formSaida.control}
+                                        name="motivoSaida"
+                                        render={({ field }) =>(
+                                            <FormItem>
+                                                <FormLabel>Motivo Saída</FormLabel>
+                                                <FormControl>
+                                                    <Select
+                                                        value={field.value}
+                                                        onValueChange={field.onChange}
+                                                    >
+                                                        <SelectTrigger>
+                                                            <SelectValue placeholder="Selecione um motivo"/>
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {motivosSaida.map((m) =>(
+                                                                <SelectItem
+                                                                    key={m.value}
+                                                                    value={m.value}
+                                                                >
+                                                                    {m.label}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                </FormControl>
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <Button className="w-full mt-2 bg-blue-700 hover:bg-blue-600">
+                                        Registrar Saída
+                                        <Save />
+                                    </Button>
+                                </form>
+                            </Form>
+                        </CardContent>
+                    </Card>
+                </CardContent>
+            </Card>
+        </div>
+    )
+    
+}
