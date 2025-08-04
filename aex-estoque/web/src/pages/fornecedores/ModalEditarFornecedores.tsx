@@ -25,9 +25,7 @@ export function ModalEditarFornecedores({
                 open={open}
                 onOpenChange={openChange}
             >
-                <DialogContent
-                    onOpenAutoFocus={(e) => e.preventDefault()}
-                >
+                <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Editar Fornecedor: {nome}</DialogTitle>
                         <DialogDescription></DialogDescription>
