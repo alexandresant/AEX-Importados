@@ -6,7 +6,6 @@ import { Input } from "../../components/ui/input"
 
 import { ShowModalCadastro } from "./ModalCadastroProduto"
 import { ShowModalEditar } from "./ModalEditarProduto"
-import { Fornecedor } from "../../types/fornecedores"
 
 import type { Produto } from "../../types/produto"
 export function Produtos(){
@@ -24,8 +23,7 @@ export function Produtos(){
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('')
     const [novaCategoria, setNovaCategoria] = useState('')
     const [categorias, setCategorias] = useState<string[]>(categoriasBase)
-    const [fornecedor, setFornecedor] = useState<Fornecedor[]>([])
-    const [fornecedorSelecionado, setFornecedorSelecionado] = useState("")
+    const [fornecedor, setfornecedor] = useState("")
 
     const [editando, setEditando] = useState(false)
     const [codEditar, setCodEditar] = useState('')
@@ -85,9 +83,7 @@ export function Produtos(){
                     nome,
                     preco: Number(preco),
                     quantidade: Number(quantidade),
-                    categoria: categoriaFinal, 
-                    codigo: gerarCodigoProduto(),
-                    fornecedorId: Number(fornecedorSelecionado)
+                    categoria: categoriaFinal, codigo: gerarCodigoProduto(),
                 }),
             });
 
@@ -110,13 +106,6 @@ export function Produtos(){
         setQuantidade('')
         setCategoriaSelecionada('')
         setNovaCategoria('')
-    }
-
-    function limparFormularioEditar(){
-        setNomeEdit("")
-        setPrecoEdit("")
-        setCategoriaEdit("")
-        setQuantEdit("")
     }
 
     // Abrir modal de entrada para um produto
@@ -271,13 +260,6 @@ export function Produtos(){
         .catch(err => console.error("Erro ao carregar produtos:", err))
     }, [])
 
-    useEffect(() => {
-        fetch("http://192.168.100.44:3001/fornecedores")
-        .then(res => res.json())
-        .then(data => setFornecedor(data))
-        .catch(err => console.error("Erro ao carregar fornecedores"))
-    }, [])
-
     return(
        <div className="bg-white rounded-lg p-2 max-w-full mx-auto overflow-hidden">
             <div className="flex flex-col sm:flex-row justify-between items-center mb-3 gap-2">
@@ -307,7 +289,6 @@ export function Produtos(){
                             <TableHead className="hidden md:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Preço</TableHead>
                             <TableHead className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estoque</TableHead>
                             <TableHead className="hidden lg:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoria</TableHead>
-                            <TableHead className="hidden lg:table-cell px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fornecedor</TableHead>
                             <TableHead className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</TableHead>
                         </TableRow>
                         </TableHeader>
@@ -335,7 +316,6 @@ export function Produtos(){
                                 </span>
                                 </td>
                                 <td className="hidden lg:table-cell px-4 py-3 text-sm text-gray-900">{p.categoria}</td>
-                                <td className="hidden lg:table-cell px-4 py-3 text-sm text-gray-900">{p.fornecedor?.nome}</td>
                                 <td className="px-4 py-3 whitespace-nowrap text-right text-sm font-medium">
                                 <Button
                                     onClick={() => editarProduto(p)}
@@ -356,19 +336,8 @@ export function Produtos(){
             {/* Modal Cadastro */}
             {showModalCadastro && (
             <ShowModalCadastro 
-                openChange={(isOpen) =>{
-                    setShowModalCadastro(isOpen)
-                    if(!isOpen){
-                        limparFormularioCadastro()
-                    }
-                }}
-                open={showModalCadastro}
                 nome={nome}
                 setNome={setNome}
-                fornecedor={fornecedor}
-                setFornecedor={setFornecedor}
-                fornecedorSelecionado={fornecedorSelecionado}
-                setFornecedorSelecionado={setFornecedorSelecionado}
                 preco={preco}
                 setPreco={setPreco}
                 quantidade={quantidade}
@@ -386,13 +355,6 @@ export function Produtos(){
             )}
             {showModalEditar && produtoSelecionado && (
                 <ShowModalEditar 
-                    open={showModalEditar}
-                    openChange={(isOpen) =>{
-                        setShowModalEditar(isOpen)
-                        if(!isOpen){
-                            limparFormularioEditar()
-                        }
-                    }}
                     nomeEdit={nomeEdit}
                     setNomeEdit={setNomeEdit}
                     precoEdit={precoEdit}

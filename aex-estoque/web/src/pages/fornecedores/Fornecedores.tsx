@@ -3,7 +3,7 @@ import { Button } from "../../components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table"
-import { ModalCadastroFornecedores } from "./ModalCadastroFornecedores"
+import { ModalCadastroFornecedores } from "../fornecedores/ModalCadastroFornecedores"
 
 import { Fornecedor } from "../../types/fornecedores"
 import { ModalEditarFornecedores } from "./ModalEditarFornecedores"
@@ -149,7 +149,7 @@ export function CadastroFornecedor(){
                 headers: { "Content-Type": "application/json" }
             })
             if(!res.ok){
-                throw new Error("Falha ao excluir fornecedor")
+                throw new Error("Falha ao exluir fornecedor")
             }
             const fornecedorAtualizado = await res.json()
 
@@ -163,7 +163,7 @@ export function CadastroFornecedor(){
             setShowModalEditar(false)
         }
         catch(error){
-            alert("Erro ao excluir fornecedor: " + error.message)
+            alert("Erro ao atualizar quantidade: " + error.message)
         }
     }
 
@@ -172,7 +172,7 @@ export function CadastroFornecedor(){
     .then(res => res.json())
     .then(data => setFornecedores(data))
     .catch(err => console.error("Erro ao carregar fornecedores: ", err))
-   }, [])
+   })
 
    useEffect(() =>{
     if(!showModalEditar){
@@ -255,7 +255,7 @@ export function CadastroFornecedor(){
                             openChange={(isOpen) =>{
                                 setShowModalEditar(isOpen)
                                 if(!isOpen){
-                                    limparFormularioCadastro()
+                                    limparFormularioCadastro
                                     setFornecedorSelecionado(null)
                                 }
                             }}

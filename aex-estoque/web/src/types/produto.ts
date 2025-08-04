@@ -5,9 +5,4 @@ export interface Produto{
     preco: number
     quantidade: number
     categoria: string
-    fornecedorId: number
-    fornecedor?: {
-        id: number,
-        nome: string
-    }
 }
