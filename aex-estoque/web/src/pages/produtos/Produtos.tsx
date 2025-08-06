@@ -25,7 +25,7 @@ export function Produtos(){
     const [novaCategoria, setNovaCategoria] = useState('')
     const [categorias, setCategorias] = useState<string[]>(categoriasBase)
     const [fornecedor, setFornecedor] = useState<Fornecedor[]>([])
-    const [fornecedorSelecionado, setFornecedorSelecionado] = useState("")
+    const [fornecedorSelecionado, setFornecedorSelecionado] = useState('')
 
     const [editando, setEditando] = useState(false)
     const [codEditar, setCodEditar] = useState('')
@@ -110,6 +110,7 @@ export function Produtos(){
         setQuantidade('')
         setCategoriaSelecionada('')
         setNovaCategoria('')
+        setFornecedorSelecionado('')
     }
 
     function limparFormularioEditar(){
@@ -160,6 +161,7 @@ export function Produtos(){
             setNomeEdit('')
             setPrecoEdit('')
             setQuantEdit('')
+            setFornecedorSelecionado("")
             setShowModalEditar(false)
             setProdutoSelecionado(null)           
         }

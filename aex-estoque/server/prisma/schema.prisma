@@ -46,16 +46,14 @@ enum MotivoEntrada {
   COMPRA
   DEVOLUCAO
   AJUSTE_ESTOQUE
-  OUTROS
 }
 
 enum MotivoSaida {
   VENDA
   CONSUMO
   TROCA
-  PERDA_AVARIA
+  PERDA
   AJUSTE_ESTOQUE
-  OUTROS
 }
 
 model Estoque {
@@ -68,5 +66,5 @@ model Estoque {
   motivoSaida MotivoSaida?
   dataMovimentacao DateTime @default(now())
   usuarioId Int?
-  Usuario Usuario? @relation(fields: [usuarioId], references: [id])
+  usuario Usuario? @relation(fields: [usuarioId], references: [id])
 }

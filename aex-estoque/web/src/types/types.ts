@@ -25,7 +25,43 @@ export interface AuthContextType{
 }
 
 export interface UserProps {
+    //id: string
     email: string,
     senha: string,
     nome: string
+}
+
+
+export interface EstoqueProps{
+    id: number
+    produtoId: number
+    quantidade: number
+    tipoMovimentacao: string
+    dataMovimentacao: Date
+    motivoSaida: string
+    motivoEntrada: string
+    dataMovimentação: Date
+    usuarioId: number
+    usuario?: {
+        id: number
+        nome: string
+    }
+    produto?: {
+        id: number
+        nome: string
+    }
+}
+
+export interface Produto{
+    id: number
+    nome: string
+    codigo: string
+    preco: number
+    quantidade: number
+    categoria: string
+    fornecedorId: number
+    fornecedor?: {
+        id: number
+        nome: string
+    }
 }

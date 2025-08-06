@@ -63,7 +63,7 @@ export function CadastroUsuarios(){
     }
     return(
         <div className="flex items-center justify-center">
-            <Card className="w-[550px]">
+            <Card className="w-[300px] md:w-[550px]">
                 <img src={logo} className="w-[100px] mx-auto mt-4"/>
                 <CardHeader>
                     <CardTitle>Cadastro de Usuário</CardTitle>

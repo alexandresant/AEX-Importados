@@ -25,16 +25,18 @@ router.post("/", async (req, res) => {
 });
 
 //Editar quantidade
-router.put("/:codigo/quantidade", async (req, res) => {
-  const { codigo } = req.params
+router.put("/:id/quantidade", async (req, res) => {
+  const { id } = req.params
   const { ajuste } = req.body //ajuste pode ser positivo ou negativo
 
   if (typeof ajuste !=="number"){
     return res.status(400).json({ error: "Ajuste deve ser um número"})
   }
 
+  const produtoId = parseInt(id)
+
   try {
-    const produto = await prisma.produto.findUnique({ where: { codigo } });
+    const produto = await prisma.produto.findUnique({ where: { id: produtoId } });
     
     if (!produto) {
       return res.status(404).json({ error: "Produto não encontrado" });
@@ -50,7 +52,7 @@ router.put("/:codigo/quantidade", async (req, res) => {
 
     // Atualização segura
     const produtoAtualizado = await prisma.produto.update({
-      where: { codigo },
+      where: { id: produtoId },
       data: { quantidade: { increment: ajuste } },
     });
 
