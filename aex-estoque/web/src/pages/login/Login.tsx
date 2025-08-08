@@ -19,17 +19,21 @@ export function Login(){
     const [senha, setSenha] = useState("")
     const [loginSenha, setLoginSenha] = useState<UserProps[]>([])
 
+    const [login, setLogin] = useState(true)
+
     function conferirSenha(){
         loginSenha.find((l) =>{
             if(l.email === email && l.senha === senha){
-                console.log("Olá: " + l.nome)
+            console.log("Olá: " + l.nome + "Id: " + l.id)
                 auth.login()
                 navigate("/dashboard")
                 setEmail("")
                 setSenha("")
+                localStorage.setItem("usuarioId", l.id)
+                setLogin(true)
             }
             else{
-                console.log("Deu errado")
+                setLogin(false)
             }
         })
 
@@ -46,7 +50,7 @@ export function Login(){
     return(
         <div className="flex items-center justify-center">
             
-            <Card className="w-[550px]">
+            <Card className="w-[300px] md:w-[550px]">
                 <img src={logo} alt="logo-aeximportados" className="w-[100px] mx-auto mt-4" />
                 <CardHeader>
                     <CardTitle >Login</CardTitle>
@@ -64,17 +68,19 @@ export function Login(){
                     <Label>Senha</Label>
                     <Input
                         type="password"
-                        className="******"
+                        placeholder="******"
                         value={senha}
                         onChange={(e) => setSenha(e.target.value)}
                     />
                     <Button 
-                        className=" w-full mt-2 bg-blue-700"
+                        className=" w-full mt-2 bg-blue-700 hover:bg-blue-600"
                         onClick={() =>conferirSenha()}    
                     >
                         Login
                     </Button>
-
+                    {!login &&
+                        <p className="text-red-600 text-center">Login ou senha incorretos</p>
+                    }
                     <a className="block text-sm text-center mt-2 underline text-muted-foreground" href="/cadastroUsuario">Não possui cadastro?</a>
                 </CardContent>
                 

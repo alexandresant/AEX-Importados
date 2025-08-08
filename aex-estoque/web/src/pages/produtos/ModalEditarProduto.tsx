@@ -38,16 +38,6 @@ export function ShowModalEditar(props){
                         onChange={(e) => props.setPrecoEdit(e.target.value)}
                     />
 
-                    <Label>Quantidade</Label>
-                    <Input
-                        type="number"
-                        min={1}
-                        placeholder="Quantidade"
-                        className="w-full border px-3 py-2"
-                        value={props.quantEdit}
-                        onChange={(e) => props.setQuantEdit(e.target.value)}
-                    />
-
                     <Label>Categoria</Label>
                     <Select
                         value={props.categoriaEdit}
