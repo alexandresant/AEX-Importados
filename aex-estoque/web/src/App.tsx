@@ -2,12 +2,14 @@ import './index.css'
 import { Sidebar } from './components/Sidebar'
 import { Produtos } from './pages/produtos/Produtos'
 import { CadastroFornecedor} from './pages/fornecedores/Fornecedores'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { Login } from './pages/login/Login'
-import { Navigate } from 'react-router-dom' 
-import { PrivateRoute } from './pages/login/PrivateRoute'
 import { CadastroUsuarios } from "./pages/login/CadastroUsuario"
 import { EntradasSaidas } from './pages/entradas-saidas/EntradasSaidas'
+import { DashBoardPage } from './pages/dashboard/dashboard'
+
+import { Navigate } from 'react-router-dom' 
+import { PrivateRoute } from './pages/login/PrivateRoute'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 
 export default function App() {
   const location = useLocation()
@@ -51,9 +53,16 @@ export default function App() {
                   <EntradasSaidas />
                 </PrivateRoute>
               }
-            >
+            />
                 
-            </Route>
+            <Route 
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <DashBoardPage />
+                </PrivateRoute>
+              }
+            />
           </Routes>
       </main>
     </div>
