@@ -37,7 +37,7 @@ export interface EstoqueProps{
     produtoId: number
     quantidade: number
     tipoMovimentacao: string
-    dataMovimentacao: Date
+    dataMovimentacao: string
     motivoSaida: string
     motivoEntrada: string
     dataMovimentação: Date
@@ -46,9 +46,10 @@ export interface EstoqueProps{
         id: number
         nome: string
     }
-    produto?: {
+    produto: {
         id: number
         nome: string
+        preco: number
     }
 }
 
