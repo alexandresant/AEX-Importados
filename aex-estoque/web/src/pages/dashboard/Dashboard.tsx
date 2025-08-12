@@ -1,12 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
 import { Label } from "../../components/ui/label"
 
-import { TotalProdutos } from "./total-produtos"
-import { Vendas } from "./vendas"
-import { TotalEstoque } from "./valor-estoque"
-import { BaixoEstoque } from "./baixo-estoque"
-import { ResumoVendas } from "./resumo-vendas"
-import { BaixoEstoqueTable } from "./baixo-estoque-table"
+import { TotalProdutos } from "./TotalProdutos"
+import { Vendas } from "./Vendas"
+import { TotalEstoque } from "./ValorEstoque"
+import { BaixoEstoque } from "./BaixoEstoque"
+import { ResumoVendas } from "./ResumoVendas"
+import { BaixoEstoqueTable } from "./BaixoEstoqueTable"
 
 export function DashBoardPage(){
 
