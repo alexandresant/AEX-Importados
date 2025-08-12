@@ -11,7 +11,8 @@ router.get("/", async (req, res) => {
         include: {
             produto: {
                 select: {
-                    nome: true
+                    nome: true,
+                    preco: true
                 }
             },
             usuario: {
