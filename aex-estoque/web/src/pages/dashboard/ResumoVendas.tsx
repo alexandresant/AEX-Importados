@@ -36,7 +36,6 @@ export function ResumoVendas(){
                             {vendas.map((v) => {
                                 const dataCompleta = v.dataMovimentacao
                                 const dataApenas = dataCompleta.split('T')[0]
-
                                 const [ano, mes, dia] = dataApenas.split('-')
 
                                 return(

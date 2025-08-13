@@ -14,7 +14,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 
 export default function App() {
   const location = useLocation()
-  const isLoginPage = location.pathname === "/login" || location.pathname === "/cadastroUsuario"
+  const isLoginPage = location.pathname === "/login"
   
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -70,6 +70,15 @@ export default function App() {
               element={
                 <PrivateRoute>
                   <Relatorios />
+                </PrivateRoute>
+              }
+            />
+
+            <Route 
+              path="/cadastroUsuario"
+              element={
+                <PrivateRoute>
+                  <CadastroUsuarios />
                 </PrivateRoute>
               }
             />

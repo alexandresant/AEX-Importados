@@ -13,7 +13,7 @@ export function DashBoardPage(){
     return(
         <Card>
             <CardHeader>
-                <CardTitle className="text-base">Dashboard</CardTitle>
+                <CardTitle>Dashboard</CardTitle>
                 <CardDescription>Visão geral estoque e fornecedores</CardDescription>
             </CardHeader>
             <CardContent>
