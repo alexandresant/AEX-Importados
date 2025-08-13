@@ -16,7 +16,7 @@ const menuItems = [
   { label: 'Entradas/Saídas', href: '/movimentacoes', icon: Repeat },
   { label: 'Fornecedores', href: '/fornecedores', icon: Truck },
   { label: 'Relatórios', href: '/relatorios', icon: FileText },
-  { label: 'Usuários', href: '/usuarios', icon: Users },
+  { label: 'Usuários', href: '/cadastroUsuario', icon: Users },
 ]
 
 export function Sidebar() {

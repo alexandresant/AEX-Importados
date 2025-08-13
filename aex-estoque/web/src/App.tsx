@@ -5,7 +5,8 @@ import { CadastroFornecedor} from './pages/fornecedores/Fornecedores'
 import { Login } from './pages/login/Login'
 import { CadastroUsuarios } from "./pages/login/CadastroUsuario"
 import { EntradasSaidas } from './pages/entradas-saidas/EntradasSaidas'
-import { DashBoardPage } from './pages/dashboard/dashboard'
+import { DashBoardPage } from './pages/dashboard/Dashboard'
+import { Relatorios } from './pages/relatorios/Relatorios'
 
 import { Navigate } from 'react-router-dom' 
 import { PrivateRoute } from './pages/login/PrivateRoute'
@@ -13,7 +14,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 
 export default function App() {
   const location = useLocation()
-  const isLoginPage = location.pathname === "/login" || location.pathname === "/cadastroUsuario"
+  const isLoginPage = location.pathname === "/login"
   
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -60,6 +61,24 @@ export default function App() {
               element={
                 <PrivateRoute>
                   <DashBoardPage />
+                </PrivateRoute>
+              }
+            />
+
+            <Route 
+              path="/relatorios"
+              element={
+                <PrivateRoute>
+                  <Relatorios />
+                </PrivateRoute>
+              }
+            />
+
+            <Route 
+              path="/cadastroUsuario"
+              element={
+                <PrivateRoute>
+                  <CadastroUsuarios />
                 </PrivateRoute>
               }
             />

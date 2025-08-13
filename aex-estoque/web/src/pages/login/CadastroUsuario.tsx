@@ -129,8 +129,6 @@ export function CadastroUsuarios(){
                             <Button type="submit" className="w-full mt-2 bg-blue-700">Cadastrar</Button>
                         </form>
                     </Form>
-
-                    <a className="block text-sm text-center mt-2 underline text-muted-foreground" href="/login">Já tem conta? Faça login</a>
                 </CardContent>
             </Card>
         </div>
