@@ -16,6 +16,9 @@ COPY . .
 # Executa o comando de build para criar a pasta dist
 RUN npm run build
 
+# Executa o comando para gerar o cliente prisma
+RUN npx prisma generate
+
 # Exponha a porta que seua aplicação usará
 EXPOSE 3001
 
