@@ -28,7 +28,7 @@ export interface AuthContextType{
 }
 
 export interface UserProps {
-    //id: string
+    id: string
     email: string,
     senha: string,
     nome: string

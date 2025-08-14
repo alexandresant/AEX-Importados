@@ -13,8 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useEffect, useState } from "react"
 import { cn } from "../../lib/utils"
-import { EstoqueProps } from "../../types/types"
-import { Produto } from "../../types/types"
+import type { Produto } from "../../types/types"
 
 const motivosEntrada = [
   { value: "COMPRA", label: "Compra" },
@@ -57,8 +56,6 @@ export function EntradasSaidas(){
 
     const [produtos, setProdutos] = useState<Produto[]>([])
 
-    let estoque: EstoqueProps[] = []
-
     type SaidaFormData = z.infer<typeof formSchemaSaida>
     type EntradaFormData = z.infer<typeof formSchemaEntrada>
 
@@ -99,23 +96,38 @@ export function EntradasSaidas(){
         setFormKeyEntrada(Date.now())
     }
 
-    function onSubmitSaida(data: SaidaFormData){
-        movimentacaoEstoqueSaida(data)
-        entradaSaidaEstoque(false)
+    async function onSubmitSaida(data: SaidaFormData) {
+        try {
+            const produto = produtos.find(p => p.id === data.produtoId)
+            if (!produto){
+                alert("Produto não encontrado no estoque")
+                return
+            }
+            if (data.quantidadeSaida > produto.quantidade) {
+                alert(`Quantidade ${data.quantidadeSaida} maior que a quantidade em estoque ${produto.quantidade}`)
+                return
+            }
 
-        formSaida.reset({
-            produtoId: 0,
-            quantidadeSaida: 0,
-            motivoSaida: undefined,
-            tipoMovimentacao: "SAIDA",
-            usuarioId: data.usuarioId
-        })
-        setFormKeySaida(Date.now())
+            await movimentacaoEstoqueSaida(data)
+            formSaida.reset({
+                produtoId: 0,
+                quantidadeSaida: 0,
+                motivoSaida: undefined,
+                tipoMovimentacao: "SAIDA",
+                usuarioId: data.usuarioId
+            })
+            setFormKeySaida(Date.now())
+        }
+        catch (error) {
+            console.error(error)
+            alert("Erro ao atualizar estoque")
+        }
+
     }
 
     async function movimentacaoEstoqueEntrada(data: EntradaFormData){
         try{
-            const response = await fetch("http://192.168.100.44:3001/estoque", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/estoque`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -138,7 +150,7 @@ export function EntradasSaidas(){
 
     async function movimentacaoEstoqueSaida(data: SaidaFormData){
         try{
-            const response = await fetch("http://192.168.100.44:3001/estoque", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/estoque`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -174,7 +186,7 @@ export function EntradasSaidas(){
         const ajuste = adicionar ? entradaEstoque : -saidaEstoque
 
         try{
-            const response = await fetch(`http://192.168.100.44:3001/produtos/${produtoSelecionado}/quantidade`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/produtos/${produtoSelecionado}/quantidade`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ajuste }),
@@ -191,7 +203,7 @@ export function EntradasSaidas(){
     }
 
     useEffect(() => {
-        fetch("http://192.168.100.44:3001/produtos")
+        fetch(`${import.meta.env.VITE_API_URL}/produtos`)
         .then(res => res.json())
         .then(data => setProdutos(data))
         .catch(err => console.error("Erro ao carregar produtos: ", err))

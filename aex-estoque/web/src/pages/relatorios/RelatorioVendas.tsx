@@ -1,8 +1,8 @@
 "use client"
 import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table"
-import { EstoqueProps } from "../../types/types"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table"
+import type { EstoqueProps } from "../../types/types"
 import { Label } from "../../components/ui/label"
 import { Input } from "../../components/ui/input"
 
@@ -12,7 +12,7 @@ export function RelatorioVendas() {
     const [dataFim, setDataFim] = useState<string>("")
 
     useEffect(() => {
-        fetch("http://192.168.100.44:3001/estoque")
+        fetch(`${import.meta.env.VITE_API_URL}/estoque`)
             .then(res => res.json())
             .then(data => setEstoque(data))
             .catch(err => console.error("Erro ao carregar produtos:", err))

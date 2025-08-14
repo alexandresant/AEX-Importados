@@ -44,7 +44,7 @@ export function ShowModalCadastro({
             value={nome}
             onChange={(e) => setNome(e.target.value)}
           />
-
+          
           {/* Preço */}
           <Input
             type="number"

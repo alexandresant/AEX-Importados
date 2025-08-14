@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
   Package,
   Repeat,
@@ -7,7 +7,7 @@ import {
   Users,
   Home
 } from 'lucide-react'
-
+import { Link } from 'react-router-dom'
 import  LogoSidebar  from "../assets/AEX-Logo.png"
 
 const menuItems = [
@@ -66,14 +66,14 @@ export function Sidebar() {
 
         <nav className="flex flex-col p-4 space-y-2">
           {menuItems.map(({ label, href, icon: Icon }) => (
-            <a
+            <Link
               key={href}
-              href={href}
+              to={href}
               className="flex items-center gap-2 px-4 py-2 rounded text-black hover:bg-blue-500 hover:text-white transition-colors"
               onClick={() => setIsOpen(false)}
             >
               <Icon size={18} /> {label}
-            </a>
+            </Link>
           ))}
         </nav>
       </aside>

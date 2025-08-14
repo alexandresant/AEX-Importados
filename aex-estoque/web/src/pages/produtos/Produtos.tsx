@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Button } from "../../components/ui/button"
+
 import {
   Table,
   TableBody,
@@ -13,7 +14,6 @@ import {
 
 import { ShowModalCadastro } from "./ModalCadastroProduto"
 import { ShowModalEditar } from "./ModalEditarProduto"
-
 import type { Fornecedor } from "../../types/fornecedores"
 import type { Produto } from "../../types/types"
 
@@ -151,6 +151,7 @@ export function Produtos() {
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
+
         }
       );
 
@@ -159,6 +160,7 @@ export function Produtos() {
       setProdutos((prev) =>
         prev.filter((p) => p.codigo !== produtoSelecionado.codigo)
       );
+
 
       limparFormularioEditar();
       setShowModalEditar(false);
@@ -185,7 +187,6 @@ export function Produtos() {
       alert("Preencha todos os campos corretamente");
       return;
     }
-
     try {
       const res = await fetch(
         `http://192.168.100.44:3001/produtos/${produtoSelecionado.codigo}/editar`,

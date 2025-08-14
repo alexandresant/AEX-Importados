@@ -3,13 +3,13 @@ import { Card, CardHeader, CardTitle, CardContent } from "../../components/ui/ca
 import { Label } from "../../components/ui/label"
 import { DollarSign } from "lucide-react"
 import { useEffect, useState } from "react"
-import { EstoqueProps } from "../../types/types"
+import type { EstoqueProps } from "../../types/types"
 
 export function TotalVendas() {
     const [estoque, setEstoque] = useState<EstoqueProps[]>([])
 
     useEffect(() => {
-        fetch("http://192.168.100.44:3001/estoque")
+        fetch(`${import.meta.env.VITE_API_URL}/estoque`)
             .then(res => res.json())
             .then(data => setEstoque(data))
             .catch(err => console.error("Erro ao carregar vendas: ", err))

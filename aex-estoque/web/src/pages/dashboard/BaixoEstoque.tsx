@@ -2,7 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
 import { Label } from "../../components/ui/label"
 import { TrendingUp } from "lucide-react"
-import { Produto } from "../../types/types"
+import type { Produto } from "../../types/types"
 import { useEffect, useState } from "react"
 
 export function BaixoEstoque(){
@@ -11,7 +11,7 @@ export function BaixoEstoque(){
     const produtosEstoqueBaixo = produtos.filter(produto => produto.quantidade < 5).length
     
       useEffect(() =>{
-        fetch("http://192.168.100.44:3001/produtos")
+        fetch(`${import.meta.env.VITE_API_URL}/produtos`)
         .then(res => res.json())
         .then(data => setProdutos(data))
         .catch(err => console.error("Erro ao carregar produtos: " + err))

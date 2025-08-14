@@ -3,9 +3,7 @@ import { Button } from "../../components/ui/button"
 import { Input } from "../../components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../components/ui/form"
 
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { UserProps } from "../../types/types"
 import { useForm } from "react-hook-form"
 
 import { z } from "zod"
@@ -43,7 +41,7 @@ export function CadastroUsuarios(){
     }
     async function cadastrarUsuarios(data: CadastroFormData){
         try{
-            const response = await fetch("http://192.168.100.44:3001/usuarios", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/usuarios`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

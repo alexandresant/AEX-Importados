@@ -2,12 +2,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
 import { Button } from "../../components/ui/button"
-import { Form } from "../../components/ui/form"
 import { Label } from "../../components/ui/label"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
 import type { UserProps } from "../../types/types"
+//import { Link } from "react-router-dom"
 
 import logo from "../../assets/AEX-Logo.png"
 
@@ -40,7 +40,7 @@ export function Login(){
     }
 
     useEffect(() =>{
-        fetch("http://192.168.100.44:3001/usuarios")
+        fetch(`${import.meta.env.VITE_API_URL}/usuarios`)
         .then(res => res.json())
         .then(data => setLoginSenha(data))
         .catch(err => console.error("Erro ao carregar usuarios", err))
@@ -81,7 +81,7 @@ export function Login(){
                     {!login &&
                         <p className="text-red-600 text-center">Login ou senha incorretos</p>
                     }
-                    <a className="block text-sm text-center mt-2 underline text-muted-foreground" href="/cadastroUsuario">Não possui cadastro?</a>
+                    {/*<Link className="block text-sm text-center mt-2 underline text-muted-foreground" to="/cadastroUsuario">Não possui cadastro?</Link>*/}
                 </CardContent>
                 
             </Card>

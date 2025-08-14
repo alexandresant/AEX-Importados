@@ -10,7 +10,7 @@ import { Relatorios } from './pages/relatorios/Relatorios'
 
 import { Navigate } from 'react-router-dom' 
 import { PrivateRoute } from './pages/login/PrivateRoute'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 
 export default function App() {
   const location = useLocation()
@@ -29,7 +29,6 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/login"/>}/>
             <Route path="/login" element={<Login />}/>
-            <Route path="/cadastroUsuario" element={<CadastroUsuarios />}/>
 
             <Route 
               path="/produtos"  

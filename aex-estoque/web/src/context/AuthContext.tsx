@@ -1,5 +1,5 @@
 import { createContext, useEffect, useContext, useState } from "react"
-import { AuthContextType } from "../types/types"
+import type { AuthContextType } from "../types/types"
 
 const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,

@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
 import { Package } from "lucide-react"
-import { Produto } from "../../types/types"
+import type { Produto } from "../../types/types"
 
 import { Label } from "../../components/ui/label"
 import { useEffect, useState } from "react"
@@ -8,7 +8,7 @@ export function TotalProdutos(){
     const [produtos, setProdutos] = useState<Produto[]>([])
 
     useEffect(() => {
-        fetch("http://192.168.100.44:3001/produtos")
+        fetch(`${import.meta.env.VITE_API_URL}/produtos`)
         .then(res => res.json())
         .then(data => setProdutos(data))
         .catch(err => console.error("Erro ao carregar produtos: ", err))

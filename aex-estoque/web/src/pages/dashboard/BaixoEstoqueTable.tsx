@@ -1,9 +1,8 @@
 "use client"
 import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
-import { Label } from "../../components/ui/label"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table"
-import { Produto } from "../../types/produto"
+import type { Produto } from "../../types/produto"
 
 export function BaixoEstoqueTable(){
   const [produtos, setProdutos] = useState<Produto[]>([])
@@ -11,7 +10,7 @@ export function BaixoEstoqueTable(){
   const produtosEstoqueBaixo = produtos.filter(produto => produto.quantidade < 5)
 
   useEffect(() =>{
-    fetch("http://192.168.100.44:3001/produtos")
+    fetch(`${import.meta.env.VITE_API_URL}/produtos`)
     .then(res => res.json())
     .then(data => setProdutos(data))
     .catch(err => console.error("Erro ao carregar produtos: " + err))

@@ -46,7 +46,6 @@ export function ShowModalEditar({
             value={nomeEdit}
             onChange={(e) => setNomeEdit(e.target.value)}
           />
-
           {/* Preço */}
           <Label>Preço</Label>
           <Input

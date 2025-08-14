@@ -12,7 +12,8 @@ router.get("/", async (req, res) => {
             produto: {
                 select: {
                     nome: true,
-                    preco: true
+                    preco: true,
+                    quantidade:true
                 }
             },
             usuario: {
@@ -25,15 +26,54 @@ router.get("/", async (req, res) => {
     res.json(estoque)
 })
 
+// Registrar movimentação de estoque com validação
 router.post("/", async (req, res) =>{
     const { produtoId, quantidade, tipoMovimentacao, motivoEntrada, motivoSaida, usuarioId } = req.body
-    const estoque = await prisma.estoque.create({
-        data: { produtoId, quantidade, tipoMovimentacao, motivoEntrada, motivoSaida, usuarioId },
-        include: {
-            produto: true,
-            usuario: true
+    if (!produtoId || !quantidade || tipoMovimentacao || !usuarioId){
+        return(
+            res.status(400).json({ error: "Dados obrigatórios faltando" })
+        )
+    }
+    try{
+        const produto = await prisma.produto.findUnique({ where: {id: produtoId} })
+        if (!produto){
+            return(
+                res.status(404).json({ error: "Produto não encontrado" })
+            )
         }
-    })
-    res.json(estoque)
+
+         // Se for saída, verifica estoque
+        if (tipoMovimentacao == "SAIDA" && produto.quantidade < quantidade){
+            return(
+                res.status(400).json({
+                    error: "Estoque insuficiente",
+                    message: `Quantidade disponível: ${produto.quantidade}`
+                })
+            )
+        }
+        // Atualiza quantidade
+        await prisma.produto.update({
+            where: {id: produtoId},
+            data: {
+                quantidade: {
+                    increment: tipoMovimentacao === "ENTRADA" ? quantidade : -quantidade
+                }
+            }
+        })
+        
+        // Registra movimentação
+        const movimentacao = await prisma.estoque.create({
+            data: { produtoId, quantidade, tipoMovimentacao, motivoEntrada, motivoSaida, usuarioId},
+            include: {
+                produto: true,
+                usuario: true
+            }
+        })
+        res.json(movimentacao)
+    }
+    catch (error) {
+        console.error("Erro ao registra movimentação", error)
+        res.status(500).json({ error: "Erro interno no servidor" })
+    }
 })
 export default router

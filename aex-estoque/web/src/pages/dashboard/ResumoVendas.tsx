@@ -1,14 +1,14 @@
 "use client"
 import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table"
-import { EstoqueProps } from "../../types/types"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table"
+import type { EstoqueProps } from "../../types/types"
 
 export function ResumoVendas(){
     const [estoque, setEstoque] = useState<EstoqueProps[]>([])
     
     useEffect(() =>{
-      fetch("http://192.168.100.44:3001/estoque")
+      fetch(`${import.meta.env.VITE_API_URL}/estoque`)
       .then(res => res.json())
       .then(data => setEstoque(data))
       .catch(err => console.error("Erro ao carregar produtos:", err))
@@ -36,7 +36,7 @@ export function ResumoVendas(){
                             {vendas.map((v) => {
                                 const dataCompleta = v.dataMovimentacao
                                 const dataApenas = dataCompleta.split('T')[0]
-                                const [ano, mes, dia] = dataApenas.split('-')
+                                const [] = dataApenas.split('-')
 
                                 return(
                                     <TableRow
