@@ -56,8 +56,6 @@ export function EntradasSaidas(){
 
     const [produtos, setProdutos] = useState<Produto[]>([])
 
-    //let estoque: EstoqueProps[] = []
-
     type SaidaFormData = z.infer<typeof formSchemaSaida>
     type EntradaFormData = z.infer<typeof formSchemaEntrada>
 
@@ -98,9 +96,19 @@ export function EntradasSaidas(){
         setFormKeyEntrada(Date.now())
     }
 
-    function onSubmitSaida(data: SaidaFormData) {
+    async function onSubmitSaida(data: SaidaFormData) {
         try {
-            movimentacaoEstoqueSaida(data)
+            const produto = produtos.find(p => p.id === data.produtoId)
+            if (!produto){
+                alert("Produto não encontrado no estoque")
+                return
+            }
+            if (data.quantidadeSaida > produto.quantidade) {
+                alert(`Quantidade ${data.quantidadeSaida} maior que a quantidade em estoque ${produto.quantidade}`)
+                return
+            }
+
+            await movimentacaoEstoqueSaida(data)
             formSaida.reset({
                 produtoId: 0,
                 quantidadeSaida: 0,
@@ -111,8 +119,8 @@ export function EntradasSaidas(){
             setFormKeySaida(Date.now())
         }
         catch (error) {
-             console.error(error)
-             alert(error)
+            console.error(error)
+            alert("Erro ao atualizar estoque")
         }
 
     }

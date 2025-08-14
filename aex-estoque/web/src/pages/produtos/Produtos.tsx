@@ -147,10 +147,10 @@ export function Produtos(){
                 throw new Error("Falha ao atualizar")
             }
 
-            //const produtoAtualizado = await res.json()
+            const produtoAtualizado = await res.json()
 
             setProdutos((prevProdutos) =>
-                prevProdutos.filter((p) => p.codigo !== produtoSelecionado.codigo)
+                prevProdutos.filter((p) => p.codigo !== produtoAtualizado.codigo)
             )
 
             setCategoriaEdit('')
@@ -162,7 +162,7 @@ export function Produtos(){
             setProdutoSelecionado(null)           
         }
         catch (error) {
-            alert("Erro ao atualizar quantidade: " + error)
+            alert("Erro ao excluir produto: " + error)
         }
     }
     //Confirmar Edição do produto

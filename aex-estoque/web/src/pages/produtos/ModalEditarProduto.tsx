@@ -61,7 +61,7 @@ export function ShowModalEditar(props: any){
                     </Select>
                
                 {props.categoriaEdit === 'nova' && (
-                    <input
+                    <Input
                         type="text"
                         placeholder="Digite nova categoria"
                         className="w-full border px-3 py-2 rounded"
