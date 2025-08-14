@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { Button } from "../../components/ui/button"
-
 import {
   Table,
   TableBody,
@@ -14,6 +13,7 @@ import {
 
 import { ShowModalCadastro } from "./ModalCadastroProduto"
 import { ShowModalEditar } from "./ModalEditarProduto"
+
 import type { Fornecedor } from "../../types/fornecedores"
 import type { Produto } from "../../types/types"
 
@@ -151,7 +151,6 @@ export function Produtos() {
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
-
         }
       );
 
@@ -160,7 +159,6 @@ export function Produtos() {
       setProdutos((prev) =>
         prev.filter((p) => p.codigo !== produtoSelecionado.codigo)
       );
-
 
       limparFormularioEditar();
       setShowModalEditar(false);
@@ -173,20 +171,19 @@ export function Produtos() {
   async function confirmarEdicao() {
     if (!produtoSelecionado) return;
 
-    const quantidadeAjuste = parseInt(quantEdit, 10);
     const precoAjuste = parseFloat(precoEdit);
+
+    if (!nomeEdit || !precoAjuste || precoAjuste <= 0 || !categoriaEdit || !fornecedorEdit) {
+      alert("Preencha todos os campos corretamente");
+      return;
+    }
     const produtoEditado: Partial<Produto> = {
       nome: nomeEdit,
       preco: precoAjuste,
-      quantidade: quantidadeAjuste,
       categoria: categoriaEdit,
       fornecedorId: fornecedorEdit ? Number(fornecedorEdit) : undefined,
     };
 
-    if (!nomeEdit || !precoAjuste || !quantidadeAjuste || !categoriaEdit) {
-      alert("Preencha todos os campos corretamente");
-      return;
-    }
     try {
       const res = await fetch(
         `http://192.168.100.44:3001/produtos/${produtoSelecionado.codigo}/editar`,
@@ -201,9 +198,18 @@ export function Produtos() {
 
       const produtoAtualizado = await res.json();
 
+      const fornecedorCompleto = fornecedores.find(
+        (f) => f.id === produtoAtualizado.fornecedorId
+      );
+
+      const produtoFinal = {
+        ...produtoAtualizado,
+        fornecedor: fornecedorCompleto || null, // Garante que a propriedade `fornecedor` existe
+      };
+
       setProdutos((prev) =>
         prev.map((p) =>
-          p.codigo === produtoAtualizado.codigo ? produtoAtualizado : p
+          p.codigo === produtoFinal.codigo ? produtoFinal : p
         )
       );
 
