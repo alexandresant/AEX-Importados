@@ -46,7 +46,6 @@ export function Produtos() {
   // Campos edição
   const [nomeEdit, setNomeEdit] = useState("");
   const [precoEdit, setPrecoEdit] = useState("");
-  const [quantEdit, setQuantEdit] = useState("");
   const [categoriaEdit, setCategoriaEdit] = useState("");
   const [fornecedorEdit, setFornecedorEdit] = useState("");
 
@@ -127,7 +126,6 @@ export function Produtos() {
   function limparFormularioEditar() {
     setNomeEdit("");
     setPrecoEdit("");
-    setQuantEdit("");
     setCategoriaEdit("");
     setFornecedorEdit("");
   }
@@ -136,7 +134,6 @@ export function Produtos() {
     setProdutoSelecionado(p);
     setNomeEdit(p.nome);
     setPrecoEdit(p.preco.toString());
-    setQuantEdit(p.quantidade.toString());
     setCategoriaEdit(p.categoria);
     setFornecedorEdit(p.fornecedor?.id.toString() || "");
     setShowModalEditar(true);
