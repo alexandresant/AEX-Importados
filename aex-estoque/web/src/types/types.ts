@@ -1,3 +1,5 @@
+import type { Fornecedor } from "./fornecedores"
+
 export interface ModalEditarFornecedoresProps{
     open: boolean
     openChange: React.Dispatch<React.SetStateAction<boolean>>
@@ -12,6 +14,7 @@ export interface ModalEditarFornecedoresProps{
     onConfirm: () => void
     onDelete: () => void
 }
+
 
 export interface LoginPageProps{
     login: string
@@ -65,4 +68,48 @@ export interface Produto{
         id: number
         nome: string
     }
+}
+
+export interface ShowModalEditarProps {
+  open: boolean;
+  openChange: (isOpen: boolean) => void;
+  nomeEdit: string;
+  setNomeEdit: (value: string) => void;
+  precoEdit: string;
+  setPrecoEdit: (value: string) => void;
+  //quantEdit: string;
+  //setQuantEdit: (value: string) => void;
+  categoriaEdit: string;
+  setCategoriaEdit: (value: string) => void;
+  categorias: string[];
+  novaCategoria: string;
+  setNovaCategoria: (value: string) => void;
+  fornecedores: Fornecedor[];
+  fornecedorEdit: string;
+  setFornecedorEdit: (value: string) => void;
+  onConfirm: () => void;
+  onClick: () => void;
+  onCancel: () => void;
+}
+
+export interface ShowModalCadastroProps {
+  open: boolean;
+  openChange: (isOpen: boolean) => void;
+  nome: string;
+  setNome: (value: string) => void;
+  preco: string;
+  setPreco: (value: string) => void;
+  quantidade: string;
+  setQuantidade: (value: string) => void;
+  categoriaSelecionada: string;
+  setCategoriaSelecionada: (value: string) => void;
+  novaCategoria: string;
+  setNovaCategoria: (value: string) => void;
+  categorias: string[];
+  setCategorias: (value: string[]) => void;
+  fornecedores: Fornecedor[];
+  fornecedorSelecionado: string;
+  setFornecedorSelecionado: (value: string) => void;
+  onConfirm: () => void;
+  onCancel: () => void;
 }
