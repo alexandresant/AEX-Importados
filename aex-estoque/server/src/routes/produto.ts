@@ -64,7 +64,7 @@ router.put("/:id/quantidade", async (req, res) => {
 //Editar Produtos
 router.put("/:codigo/editar", async (req, res) =>{
   const { codigo } = req.params
-  const { nome, preco, quantidade, categoria } = req.body
+  const { nome, preco, fornecedorId, categoria } = req.body
 
   try{
     const produto = await prisma.produto.findUnique({ where: { codigo } })
@@ -75,7 +75,7 @@ router.put("/:codigo/editar", async (req, res) =>{
 
     const produtoAtualizado = await prisma.produto.update({
       where: { codigo },
-      data: { nome, preco, quantidade, categoria}
+      data: { nome, preco, fornecedorId, categoria}
     })  
     return res.json(produtoAtualizado)
   
