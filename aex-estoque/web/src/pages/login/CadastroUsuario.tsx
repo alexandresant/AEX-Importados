@@ -41,7 +41,7 @@ export function CadastroUsuarios(){
     }
     async function cadastrarUsuarios(data: CadastroFormData){
         try{
-            const response = await fetch("http://192.168.100.44:3001/usuarios", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/usuarios`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
