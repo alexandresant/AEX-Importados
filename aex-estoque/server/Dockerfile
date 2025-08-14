@@ -19,6 +19,9 @@ RUN npm run build
 # Executa o comando para gerar o cliente prisma
 RUN npx prisma generate
 
+#Executa as migrações do prisma no banco de dados
+RUN npx prisma migrate deploy
+
 # Exponha a porta que seua aplicação usará
 EXPOSE 3001
 
