@@ -74,14 +74,14 @@ export default function App() {
               }
             />
 
-            <Route 
+            {/*<Route 
               path="/cadastroUsuario"
               element={
                 <PrivateRoute>
                   <CadastroUsuarios />
                 </PrivateRoute>
               }
-            />
+            />*/}
           </Routes>
       </main>
     </div>
