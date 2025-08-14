@@ -91,7 +91,7 @@ export function Produtos() {
     }
 
     try {
-      const response = await fetch("http://192.168.100.44:3001/produtos", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/produtos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -147,7 +147,7 @@ export function Produtos() {
 
     try {
       const res = await fetch(
-        `http://192.168.100.44:3001/produtos/${produtoSelecionado.codigo}/excluir`,
+        `${import.meta.env.VITE_API_URL}/produtos/${produtoSelecionado.codigo}/excluir`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
@@ -189,7 +189,7 @@ export function Produtos() {
     }
     try {
       const res = await fetch(
-        `http://192.168.100.44:3001/produtos/${produtoSelecionado.codigo}/editar`,
+        `${import.meta.env.VITE_API_URL}/${produtoSelecionado.codigo}/editar`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -216,14 +216,14 @@ export function Produtos() {
   }
 
   useEffect(() => {
-    fetch("http://192.168.100.44:3001/produtos")
+    fetch(`${import.meta.env.VITE_API_URL}/produtos`)
       .then((res) => res.json())
       .then((data) => setProdutos(data))
       .catch((err) => console.error("Erro ao carregar produtos:", err));
   }, []);
 
   useEffect(() => {
-    fetch("http://192.168.100.44:3001/fornecedores")
+    fetch(`${import.meta.env.VITE_API_URL}/fornecedores`)
       .then((res) => res.json())
       .then((data) => setFornecedores(data))
       .catch((err) => console.error("Erro ao carregar fornecedores:", err));

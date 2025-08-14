@@ -25,7 +25,7 @@ export function ShowModalEditar({
   setFornecedorEdit,
   onConfirm,
   onClick,
-  onCancel,
+  //onCancel,
 }: ShowModalEditarProps) {
   return (
     <Dialog open={open} onOpenChange={openChange}>
