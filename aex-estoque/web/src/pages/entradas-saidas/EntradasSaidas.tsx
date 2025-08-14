@@ -114,7 +114,7 @@ export function EntradasSaidas(){
 
     async function movimentacaoEstoqueEntrada(data: EntradaFormData){
         try{
-            const response = await fetch("http://192.168.100.44:3001/estoque", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/estoque`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -137,7 +137,7 @@ export function EntradasSaidas(){
 
     async function movimentacaoEstoqueSaida(data: SaidaFormData){
         try{
-            const response = await fetch("http://192.168.100.44:3001/estoque", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/estoque`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -173,7 +173,7 @@ export function EntradasSaidas(){
         const ajuste = adicionar ? entradaEstoque : -saidaEstoque
 
         try{
-            const response = await fetch(`http://192.168.100.44:3001/produtos/${produtoSelecionado}/quantidade`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/produtos/${produtoSelecionado}/quantidade`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ajuste }),
@@ -190,7 +190,7 @@ export function EntradasSaidas(){
     }
 
     useEffect(() => {
-        fetch("http://192.168.100.44:3001/produtos")
+        fetch(`${import.meta.env.VITE_API_URL}/produtos`)
         .then(res => res.json())
         .then(data => setProdutos(data))
         .catch(err => console.error("Erro ao carregar produtos: ", err))

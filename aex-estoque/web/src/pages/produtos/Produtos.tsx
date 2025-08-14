@@ -75,7 +75,7 @@ export function Produtos(){
         }
 
         try{
-            const response = await fetch("http://192.168.100.44:3001/produtos",{
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/produtos`,{
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -139,7 +139,7 @@ export function Produtos(){
             return
         }
         try{
-            const res = await fetch(`http://192.168.100.44:3001/produtos/${produtoSelecionado.codigo}/excluir`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/produtos/${produtoSelecionado.codigo}/excluir`, {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json"}
             })
@@ -187,7 +187,7 @@ export function Produtos(){
         }
         
         try{
-            const res = await fetch(`http://192.168.100.44:3001/produtos/${produtoSelecionado.codigo}/editar`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/produtos/${produtoSelecionado.codigo}/editar`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(produtoEditado)
@@ -211,7 +211,7 @@ export function Produtos(){
             setShowModalEditar(false)
             setProdutoSelecionado(null)
             
-            await fetch("http://192.168.100.44:3001/produtos")
+            await fetch(`${import.meta.env.VITE_API_URL}/produtos`)
             .then((res) => res.json())
             .then((data) => setProdutos(data))
             .catch((err) => console.error("Erro ao recarregar produtos:", err));
@@ -223,14 +223,14 @@ export function Produtos(){
     }
 
     useEffect(() =>{
-        fetch("http://192.168.100.44:3001/produtos")
+        fetch(`${import.meta.env.VITE_API_URL}/produtos`)
         .then(res => res.json())
         .then(data => setProdutos(data))
         .catch(err => console.error("Erro ao carregar produtos:", err))
     }, [])
 
     useEffect(() => {
-        fetch("http://192.168.100.44:3001/fornecedores")
+        fetch(`${import.meta.env.VITE_API_URL}/fornecedores`)
         .then(res => res.json())
         .then(data => setFornecedor(data))
         .catch(err => console.error("Erro ao carregar fornecedores", err))

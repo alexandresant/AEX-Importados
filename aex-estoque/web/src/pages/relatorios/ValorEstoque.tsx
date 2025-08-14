@@ -9,7 +9,7 @@ export function ValorEstoque() {
     const [produtosEstoque, setProdutosEstoque] = useState<Produto[]>([])
 
     useEffect(() => {
-        fetch("http://192.168.100.44:3001/produtos")
+        fetch(`${import.meta.env.VITE_API_URL}/produtos`)
             .then(res => res.json())
             .then(data => setProdutosEstoque(data))
             .catch(err => console.error("Erro ao carregar produtos: ", err))

@@ -29,7 +29,6 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/login"/>}/>
             <Route path="/login" element={<Login />}/>
-            <Route path="/cadastroUsuario" element={<CadastroUsuarios />}/>
 
             <Route 
               path="/produtos"  
@@ -74,14 +73,14 @@ export default function App() {
               }
             />
 
-            {/*<Route 
+            <Route 
               path="/cadastroUsuario"
               element={
                 <PrivateRoute>
                   <CadastroUsuarios />
                 </PrivateRoute>
               }
-            />*/}
+            />
           </Routes>
       </main>
     </div>

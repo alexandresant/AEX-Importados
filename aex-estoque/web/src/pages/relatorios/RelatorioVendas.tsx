@@ -12,7 +12,7 @@ export function RelatorioVendas() {
     const [dataFim, setDataFim] = useState<string>("")
 
     useEffect(() => {
-        fetch("http://192.168.100.44:3001/estoque")
+        fetch(`${import.meta.env.VITE_API_URL}/estoque`)
             .then(res => res.json())
             .then(data => setEstoque(data))
             .catch(err => console.error("Erro ao carregar produtos:", err))

@@ -45,7 +45,7 @@ export function CadastroFornecedor(){
             alert("Preencha todos os campos obrigatórios")
         }
         try{
-            const response = await fetch("http://192.168.100.44:3001/fornecedores", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/fornecedores`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -95,7 +95,7 @@ export function CadastroFornecedor(){
     }
 
     try{
-        const res = await fetch(`http://192.168.100.44:3001/fornecedores/${fornecedorSelecionado.codigo}/editar`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/fornecedores/${fornecedorSelecionado.codigo}/editar`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(fornecedorEditado)
@@ -119,7 +119,7 @@ export function CadastroFornecedor(){
         setShowModalEditar(false)
         setFornecedorSelecionado(null)
 
-        await fetch("http://192.168.100.44:3001/fornecedores")
+        await fetch(`${import.meta.env.VITE_API_URL}/fornecedores`)
         .then((res) => res.json())
         .then((data) => setFornecedores(data))
         .catch((err) => console.error("Erro ao recarregar produtos: ", err))
@@ -144,7 +144,7 @@ export function CadastroFornecedor(){
             return
         }
         try{
-            const res = await fetch(`http://192.168.100.44:3001/fornecedores/${fornecedorSelecionado.codigo}/excluir`,{
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/fornecedores/${fornecedorSelecionado.codigo}/excluir`,{
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" }
             })
@@ -168,7 +168,7 @@ export function CadastroFornecedor(){
     }
 
    useEffect(() =>{
-    fetch("http://192.168.100.44:3001/fornecedores")
+    fetch(`${import.meta.env.VITE_API_URL}/fornecedores`)
     .then(res => res.json())
     .then(data => setFornecedores(data))
     .catch(err => console.error("Erro ao carregar fornecedores: ", err))

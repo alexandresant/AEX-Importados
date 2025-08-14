@@ -20,14 +20,14 @@ export function RelatoriosEstoque() {
     const [dataFim, setDataFim] = useState("")
 
     useEffect(() => {
-        fetch("http://192.168.100.44:3001/produtos")
+        fetch(`${import.meta.env.VITE_API_URL}/produtos`)
             .then(res => res.json())
             .then(data => setProdutos(data))
             .catch(err => console.error("Erro ao carregar produtos: ", err))
     }, [])
 
     useEffect(() => {
-        fetch("http://192.168.100.44:3001/estoque")
+        fetch(`${import.meta.env.VITE_API_URL}/estoque`)
             .then(res => res.json())
             .then(data => setEstoque(data))
             .catch(err => console.error("Erro ao carregar movimentações", err))

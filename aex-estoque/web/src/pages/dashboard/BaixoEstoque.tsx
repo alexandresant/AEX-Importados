@@ -11,7 +11,7 @@ export function BaixoEstoque(){
     const produtosEstoqueBaixo = produtos.filter(produto => produto.quantidade < 5).length
     
       useEffect(() =>{
-        fetch("http://192.168.100.44:3001/produtos")
+        fetch(`${import.meta.env.VITE_API_URL}/produtos`)
         .then(res => res.json())
         .then(data => setProdutos(data))
         .catch(err => console.error("Erro ao carregar produtos: " + err))

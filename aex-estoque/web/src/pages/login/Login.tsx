@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext"
 import type { UserProps } from "../../types/types"
-import { Link } from "react-router-dom"
+//import { Link } from "react-router-dom"
 
 import logo from "../../assets/AEX-Logo.png"
 
@@ -81,7 +81,7 @@ export function Login(){
                     {!login &&
                         <p className="text-red-600 text-center">Login ou senha incorretos</p>
                     }
-                    <Link className="block text-sm text-center mt-2 underline text-muted-foreground" to="/cadastroUsuario">Não possui cadastro?</Link>
+                    {/*<Link className="block text-sm text-center mt-2 underline text-muted-foreground" to="/cadastroUsuario">Não possui cadastro?</Link>*/}
                 </CardContent>
                 
             </Card>
