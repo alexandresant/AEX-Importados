@@ -98,18 +98,23 @@ export function EntradasSaidas(){
         setFormKeyEntrada(Date.now())
     }
 
-    function onSubmitSaida(data: SaidaFormData){
-        movimentacaoEstoqueSaida(data)
-        entradaSaidaEstoque(false)
+    function onSubmitSaida(data: SaidaFormData) {
+        try {
+            movimentacaoEstoqueSaida(data)
+            formSaida.reset({
+                produtoId: 0,
+                quantidadeSaida: 0,
+                motivoSaida: undefined,
+                tipoMovimentacao: "SAIDA",
+                usuarioId: data.usuarioId
+            })
+            setFormKeySaida(Date.now())
+        }
+        catch (error) {
+             console.error(error)
+             alert(error)
+        }
 
-        formSaida.reset({
-            produtoId: 0,
-            quantidadeSaida: 0,
-            motivoSaida: undefined,
-            tipoMovimentacao: "SAIDA",
-            usuarioId: data.usuarioId
-        })
-        setFormKeySaida(Date.now())
     }
 
     async function movimentacaoEstoqueEntrada(data: EntradaFormData){
