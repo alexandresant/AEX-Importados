@@ -1,9 +1,8 @@
 "use client"
 import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
-import { Label } from "../../components/ui/label"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table"
-import { Produto } from "../../types/produto"
+import type { Produto } from "../../types/produto"
 
 export function BaixoEstoqueTable(){
   const [produtos, setProdutos] = useState<Produto[]>([])

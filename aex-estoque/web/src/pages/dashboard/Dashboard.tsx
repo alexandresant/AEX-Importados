@@ -1,6 +1,4 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
-import { Label } from "../../components/ui/label"
-
 import { TotalProdutos } from "./TotalProdutos"
 import { Vendas } from "./Vendas"
 import { TotalEstoque } from "./ValorEstoque"

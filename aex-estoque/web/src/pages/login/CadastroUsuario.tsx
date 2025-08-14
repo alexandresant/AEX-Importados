@@ -3,9 +3,7 @@ import { Button } from "../../components/ui/button"
 import { Input } from "../../components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../../components/ui/form"
 
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { UserProps } from "../../types/types"
 import { useForm } from "react-hook-form"
 
 import { z } from "zod"

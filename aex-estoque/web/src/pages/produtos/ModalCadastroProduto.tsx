@@ -1,11 +1,9 @@
-import { Key } from "lucide-react"
 import { Button } from "../../components/ui/button"
-import { Card } from "../../components/ui/card"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../../components/ui/dialog"
 import { Input } from "../../components/ui/input"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select" 
 
-export function ShowModalCadastro(props){
+export function ShowModalCadastro(props: any){
     return(
         <div>
             <Dialog open={props.open} onOpenChange={props.openChange}>
@@ -55,7 +53,7 @@ export function ShowModalCadastro(props){
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                {props.categorias.map((cat) =>(
+                                {props.categorias.map((cat: any) =>(
                                     <SelectItem
                                         key={cat}
                                         value={cat}
@@ -87,7 +85,7 @@ export function ShowModalCadastro(props){
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                {props.fornecedor.map((f) => (
+                                {props.fornecedor.map((f: any) => (
                                     <SelectItem
                                         key={f.id}
                                         value={f.id}

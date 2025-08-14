@@ -2,7 +2,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
 import { Label } from "../../components/ui/label"
 import { DollarSign } from "lucide-react"
-import { Produto } from "../../types/types"
+import type { Produto } from "../../types/types"
 import { useEffect, useState } from "react"
 
 export function TotalEstoque(){

@@ -3,13 +3,11 @@ import { Input } from "../../components/ui/input"
 import { 
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger
 } from "../../components/ui/dialog"
 
-export function ModalCadastroFornecedores(props){
+export function ModalCadastroFornecedores(props: any){
     return(
         <>
             <Dialog open={props.open} onOpenChange={props.openChange}>          

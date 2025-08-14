@@ -13,8 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useEffect, useState } from "react"
 import { cn } from "../../lib/utils"
-import { EstoqueProps } from "../../types/types"
-import { Produto } from "../../types/types"
+import type { Produto } from "../../types/types"
 
 const motivosEntrada = [
   { value: "COMPRA", label: "Compra" },
@@ -57,7 +56,7 @@ export function EntradasSaidas(){
 
     const [produtos, setProdutos] = useState<Produto[]>([])
 
-    let estoque: EstoqueProps[] = []
+    //let estoque: EstoqueProps[] = []
 
     type SaidaFormData = z.infer<typeof formSchemaSaida>
     type EntradaFormData = z.infer<typeof formSchemaEntrada>

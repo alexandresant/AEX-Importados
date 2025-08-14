@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "../../components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card"
+import { Card, CardContent} from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table"
 import { ModalCadastroFornecedores } from "./ModalCadastroFornecedores"
 
-import { Fornecedor } from "../../types/fornecedores"
+import type { Fornecedor } from "../../types/fornecedores"
 import { ModalEditarFornecedores } from "./ModalEditarFornecedores"
 
 
@@ -22,10 +22,10 @@ export function CadastroFornecedor(){
     const [showModalEditar, setShowModalEditar] = useState(false)
     const [busca, setBusca] = useState('')
 
-    const fornecedoreFiltrados = fornecedores.filter((p) =>
+    {/*const fornecedoreFiltrados = fornecedores.filter((p) =>
         p.nome.toLowerCase().includes(busca.toLowerCase()) ||
         p.contato.toLowerCase().includes(busca.toLowerCase())
-    )
+    )*/}
 
     function gerarCodigo(){
         return `FORN-${Date.now()}`
@@ -151,7 +151,7 @@ export function CadastroFornecedor(){
             if(!res.ok){
                 throw new Error("Falha ao excluir fornecedor")
             }
-            const fornecedorAtualizado = await res.json()
+            //const fornecedorAtualizado = await res.json()
 
             setFornecedores((prevFornecedor) =>
                 prevFornecedor.filter((f) => f.codigo !== fornecedorSelecionado.codigo)
@@ -163,7 +163,7 @@ export function CadastroFornecedor(){
             setShowModalEditar(false)
         }
         catch(error){
-            alert("Erro ao excluir fornecedor: " + error.message)
+            alert("Erro ao excluir fornecedor: " + error)
         }
     }
 
@@ -231,7 +231,7 @@ export function CadastroFornecedor(){
                     {showModalCadastro &&
                         <ModalCadastroFornecedores 
                             open={showModalCadastro}
-                            openChange={(isOpen) =>{
+                            openChange={(isOpen: any) =>{
                                 setShowModalCadastro(isOpen)
                                 if(!isOpen){
                                     limparFormularioCadastro()

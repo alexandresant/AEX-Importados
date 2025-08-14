@@ -2,7 +2,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
 import { Button } from "../../components/ui/button"
-import { Form } from "../../components/ui/form"
 import { Label } from "../../components/ui/label"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
@@ -40,7 +39,7 @@ export function Login(){
     }
 
     useEffect(() =>{
-        fetch("http://192.168.100.44:3001/usuarios")
+        fetch(`${import.meta.env.VITE_API_URL}/usuarios`)
         .then(res => res.json())
         .then(data => setLoginSenha(data))
         .catch(err => console.error("Erro ao carregar usuarios", err))

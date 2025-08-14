@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "../../components/ui/ca
 import { Label } from "../../components/ui/label"
 import { DollarSign } from "lucide-react"
 import { useState, useEffect } from "react"
-import { Produto } from "../../types/types"
+import type { Produto } from "../../types/types"
 
 export function ValorEstoque() {
     const [produtosEstoque, setProdutosEstoque] = useState<Produto[]>([])

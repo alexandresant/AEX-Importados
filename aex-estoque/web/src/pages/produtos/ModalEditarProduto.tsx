@@ -5,7 +5,7 @@ import { Input } from "../../components/ui/input"
 import { Select, SelectGroup, SelectTrigger, SelectContent, SelectValue, SelectItem } from "../../components/ui/select"
 import { Label } from "../../components/ui/label"
 
-export function ShowModalEditar(props){
+export function ShowModalEditar(props: any){
     console.log(props.value)
     return(
         <div>
@@ -48,7 +48,7 @@ export function ShowModalEditar(props){
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                {props.categorias.map((cat) => (
+                                {props.categorias.map((cat: any) => (
                                     <SelectItem
                                         key={cat}
                                         value={cat}

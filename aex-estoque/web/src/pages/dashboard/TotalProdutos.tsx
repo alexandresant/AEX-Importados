@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
 import { Package } from "lucide-react"
-import { Produto } from "../../types/types"
+import type { Produto } from "../../types/types"
 
 import { Label } from "../../components/ui/label"
 import { useEffect, useState } from "react"

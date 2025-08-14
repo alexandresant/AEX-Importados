@@ -1,8 +1,5 @@
 "use client"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
-import { Label } from "../../components/ui/label"
-import { Table } from "../../components/ui/table"
-import { Package, DollarSign, FileText } from "lucide-react"
 import { TotalItensEstoque } from "./TotalItens"
 import { QuantidadeTotalEstoque } from "./QuatidadeTotal"
 import { TotalVendas } from "./TotalVendas"
@@ -17,10 +14,6 @@ const relatorio = [
     {value: "estoque", label: "Relatórios de estoque"},
     {value: "nenhum", label: "Selecione um relatório"}
 ]
-interface TipoRelatorios{
-    value: string
-    label: string
-}
 
 export function Relatorios(){
     const [tipoRelatorio, setTipoRelatorio] = useState("nenhum")

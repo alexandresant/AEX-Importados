@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react"
-import { data } from "react-router-dom"
 import { Button } from "../../components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../components/ui/table"
-import { Input } from "../../components/ui/input"
 
 import { ShowModalCadastro } from "./ModalCadastroProduto"
 import { ShowModalEditar } from "./ModalEditarProduto"
-import { Fornecedor } from "../../types/fornecedores"
+import type { Fornecedor } from "../../types/fornecedores"
 
 import type { Produto } from "../../types/produto"
 export function Produtos(){
@@ -27,11 +25,10 @@ export function Produtos(){
     const [fornecedor, setFornecedor] = useState<Fornecedor[]>([])
     const [fornecedorSelecionado, setFornecedorSelecionado] = useState('')
 
-    const [editando, setEditando] = useState(false)
-    const [codEditar, setCodEditar] = useState('')
+   //const [editando, setEditando] = useState(false)
+    //const [codEditar, setCodEditar] = useState('')
 
     //Campo de entrada para o estoque
-    const [quantEntrada, setQuantEntrada] = useState('')
     const [nomeEdit, setNomeEdit] = useState('')
     const [categoriaEdit, setCategoriaEdit] = useState('')
     const [quantEdit, setQuantEdit] = useState('')
@@ -121,14 +118,13 @@ export function Produtos(){
     }
 
     // Abrir modal de entrada para um produto
-    function abrirEntrada(p: Produto) {
+    {/*function abrirEntrada(p: Produto) {
         setProdutoSelecionado(p)
         setQuantEntrada('')
         //setShowModalEntrada(true)
-    }
+    }*/}
 
     function editarProduto(p: Produto){
-        setEditando(true)
         setProdutoSelecionado(p)
         setNomeEdit(p.nome)
         setPrecoEdit(p.preco.toString())
@@ -151,7 +147,7 @@ export function Produtos(){
                 throw new Error("Falha ao atualizar")
             }
 
-            const produtoAtualizado = await res.json()
+            //const produtoAtualizado = await res.json()
 
             setProdutos((prevProdutos) =>
                 prevProdutos.filter((p) => p.codigo !== produtoSelecionado.codigo)
@@ -166,7 +162,7 @@ export function Produtos(){
             setProdutoSelecionado(null)           
         }
         catch (error) {
-            alert("Erro ao atualizar quantidade: " + error.message);
+            alert("Erro ao atualizar quantidade: " + error)
         }
     }
     //Confirmar Edição do produto
@@ -225,46 +221,6 @@ export function Produtos(){
         }
 
     }
-     // Confirmar entrada de estoque
-    async function confirmarEntrada(adicionar: boolean) {
-        const quantidadeAjuste = parseInt(quantEntrada, 10);
-
-        if (isNaN(quantidadeAjuste) || quantidadeAjuste <= 0) {
-            alert("Informe uma quantidade válida.");
-            return;
-        }
-
-        if (!produtoSelecionado) return;
-
-        const ajuste = adicionar ? quantidadeAjuste : -quantidadeAjuste;
-
-        try {
-            const res = await fetch(`http://192.168.100.44:3001/produtos/${produtoSelecionado.codigo}/quantidade`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ajuste }),
-            });
-
-            if (!res.ok) {
-            throw new Error("Falha ao atualizar quantidade");
-            }
-
-            const produtoAtualizado = await res.json();
-
-            setProdutos((prevProdutos) =>
-            prevProdutos.map((p) =>
-                p.codigo === produtoAtualizado.codigo ? produtoAtualizado : p
-            )
-            );
-
-            setShowModalEditar(false);
-            setQuantEntrada("");
-            setProdutoSelecionado(null);
-        } catch (error) {
-            alert("Erro ao atualizar quantidade: " + error.message);
-        }
-    }
-
 
     useEffect(() =>{
         fetch("http://192.168.100.44:3001/produtos")
@@ -277,7 +233,7 @@ export function Produtos(){
         fetch("http://192.168.100.44:3001/fornecedores")
         .then(res => res.json())
         .then(data => setFornecedor(data))
-        .catch(err => console.error("Erro ao carregar fornecedores"))
+        .catch(err => console.error("Erro ao carregar fornecedores", err))
     }, [])
 
     return(
@@ -358,7 +314,7 @@ export function Produtos(){
             {/* Modal Cadastro */}
             {showModalCadastro && (
             <ShowModalCadastro 
-                openChange={(isOpen) =>{
+                openChange={(isOpen: any) =>{
                     setShowModalCadastro(isOpen)
                     if(!isOpen){
                         limparFormularioCadastro()
@@ -389,7 +345,7 @@ export function Produtos(){
             {showModalEditar && produtoSelecionado && (
                 <ShowModalEditar 
                     open={showModalEditar}
-                    openChange={(isOpen) =>{
+                    openChange={(isOpen: any) =>{
                         setShowModalEditar(isOpen)
                         if(!isOpen){
                             limparFormularioEditar()
