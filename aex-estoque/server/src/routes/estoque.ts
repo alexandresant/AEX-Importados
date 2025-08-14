@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 // Registrar movimentação de estoque com validação
 router.post("/", async (req, res) =>{
     const { produtoId, quantidade, tipoMovimentacao, motivoEntrada, motivoSaida, usuarioId } = req.body
-    if (!produtoId || !quantidade || tipoMovimentacao || !usuarioId){
+    if (!produtoId || !quantidade || !tipoMovimentacao || !usuarioId){
         return(
             res.status(400).json({ error: "Dados obrigatórios faltando" })
         )
